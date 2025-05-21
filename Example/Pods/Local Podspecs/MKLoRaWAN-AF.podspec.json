@@ -1,0 +1,1160 @@
+{
+  "name": "MKLoRaWAN-AF",
+  "version": "0.1.0",
+  "summary": "A short description of MKLoRaWAN-AF.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/lovexiaoxia/MKLoRaWAN-AF",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "lovexiaoxia": "aadyx2007@163.com"
+  },
+  "source": {
+    "git": "https://github.com/lovexiaoxia/MKLoRaWAN-AF.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "14.0"
+  },
+  "resource_bundles": {
+    "MKLoRaWAN-AF": [
+      "MKLoRaWAN-AF/Assets/*.*"
+    ]
+  },
+  "subspecs": [
+    {
+      "name": "CTMediator",
+      "source_files": "MKLoRaWAN-AF/Classes/CTMediator/**",
+      "dependencies": {
+        "MKBaseModuleLibrary": [
+
+        ],
+        "CTMediator": [
+
+        ]
+      }
+    },
+    {
+      "name": "DatabaseManager",
+      "dependencies": {
+        "MKBaseModuleLibrary": [
+
+        ],
+        "FMDB": [
+
+        ]
+      },
+      "subspecs": [
+        {
+          "name": "SyncDatabase",
+          "source_files": "MKLoRaWAN-AF/Classes/DatabaseManager/SyncDatabase/**"
+        },
+        {
+          "name": "LogDatabase",
+          "source_files": "MKLoRaWAN-AF/Classes/DatabaseManager/LogDatabase/**"
+        }
+      ]
+    },
+    {
+      "name": "SDK",
+      "source_files": "MKLoRaWAN-AF/Classes/SDK/**",
+      "dependencies": {
+        "MKBaseBleModule": [
+
+        ]
+      }
+    },
+    {
+      "name": "Target",
+      "source_files": "MKLoRaWAN-AF/Classes/Target/**",
+      "dependencies": {
+        "MKLoRaWAN-AF/Functions": [
+
+        ]
+      }
+    },
+    {
+      "name": "ConnectModule",
+      "source_files": "MKLoRaWAN-AF/Classes/ConnectModule/**",
+      "dependencies": {
+        "MKLoRaWAN-AF/SDK": [
+
+        ],
+        "MKBaseModuleLibrary": [
+
+        ]
+      }
+    },
+    {
+      "name": "Expand",
+      "dependencies": {
+        "MKBaseModuleLibrary": [
+
+        ],
+        "MKCustomUIModule": [
+
+        ]
+      },
+      "subspecs": [
+        {
+          "name": "TextButtonCell",
+          "source_files": "MKLoRaWAN-AF/Classes/Expand/TextButtonCell/**"
+        },
+        {
+          "name": "ReportTimePointCell",
+          "source_files": "MKLoRaWAN-AF/Classes/Expand/ReportTimePointCell/**"
+        },
+        {
+          "name": "TimingModeAddCell",
+          "source_files": "MKLoRaWAN-AF/Classes/Expand/TimingModeAddCell/**"
+        },
+        {
+          "name": "FilterCell",
+          "subspecs": [
+            {
+              "name": "FilterBeaconCell",
+              "source_files": "MKLoRaWAN-AF/Classes/Expand/FilterCell/FilterBeaconCell/**"
+            },
+            {
+              "name": "FilterByRawDataCell",
+              "source_files": "MKLoRaWAN-AF/Classes/Expand/FilterCell/FilterByRawDataCell/**"
+            },
+            {
+              "name": "FilterEditSectionHeaderView",
+              "source_files": "MKLoRaWAN-AF/Classes/Expand/FilterCell/FilterEditSectionHeaderView/**"
+            },
+            {
+              "name": "FilterNormalTextFieldCell",
+              "source_files": "MKLoRaWAN-AF/Classes/Expand/FilterCell/FilterNormalTextFieldCell/**"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Functions",
+      "dependencies": {
+        "MKLoRaWAN-AF/SDK": [
+
+        ],
+        "MKLoRaWAN-AF/DatabaseManager": [
+
+        ],
+        "MKLoRaWAN-AF/CTMediator": [
+
+        ],
+        "MKLoRaWAN-AF/ConnectModule": [
+
+        ],
+        "MKLoRaWAN-AF/Expand": [
+
+        ],
+        "MKBaseModuleLibrary": [
+
+        ],
+        "MKCustomUIModule": [
+
+        ],
+        "MKFilterPagesModule": [
+
+        ],
+        "HHTransition": [
+
+        ],
+        "MLInputDodger": [
+
+        ],
+        "iOSDFULibrary": [
+          "4.13.0"
+        ]
+      },
+      "subspecs": [
+        {
+          "name": "ScanTimePointModel",
+          "source_files": "MKLoRaWAN-AF/Classes/Functions/ScanTimePointModel/**"
+        },
+        {
+          "name": "AboutPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/AboutPage/Controller/**"
+            }
+          ]
+        },
+        {
+          "name": "AlarmPayloadSettingsPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/AlarmPayloadSettingsPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/AlarmPayloadSettingsPage/Model": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/AlarmPayloadSettingsPage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "BatteryConsumptionPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/BatteryConsumptionPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/BatteryConsumptionPage/Model": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/BatteryConsumptionPage/View": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/BatteryConsumptionPage/Model/**"
+            },
+            {
+              "name": "View",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/BatteryConsumptionPage/View/**"
+            }
+          ]
+        },
+        {
+          "name": "BleGatewaySettingsPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/BleGatewaySettingsPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/BleGatewaySettingsPage/Model": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/ScanReportPage/Controller": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/FilterSettingPage/Controller": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/PayloadContentPage/Controller": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/BleGatewaySettingsPage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "BleSettingsPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/BleSettingsPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/BleSettingsPage/Model": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/BleSettingsPage/View": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/BleSettingsPage/Model/**"
+            },
+            {
+              "name": "View",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/BleSettingsPage/View/**"
+            }
+          ]
+        },
+        {
+          "name": "DebuggerPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/DebuggerPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/DebuggerPage/View": [
+
+                ]
+              }
+            },
+            {
+              "name": "View",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/DebuggerPage/View/**"
+            }
+          ]
+        },
+        {
+          "name": "DeviceInfoPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/DeviceInfoPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/DeviceInfoPage/Model": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/UpdatePage/Controller": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/SelftestPage/Controller": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/DebuggerPage/Controller": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/BatteryConsumptionPage/Controller": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/DeviceInfoPage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "DeviceSettingsPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/DeviceSettingsPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/DeviceSettingsPage/Model": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/SynDataPage/Controller": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/IndicatorSettingPage/Controller": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/DeviceInfoPage/Controller": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/OnOffSettingsPage/Controller": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/DeviceSettingsPage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "FilterByRawDataPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/FilterByRawDataPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/FilterByRawDataPage/Model": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/FilterByRawDataPage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "FilterSettingPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/FilterSettingPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/FilterSettingPage/Model": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/FilterSettingPage/View": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/FilterByRawDataPage/Controller": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/FilterSettingPage/Model/**"
+            },
+            {
+              "name": "View",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/FilterSettingPage/View/**"
+            }
+          ]
+        },
+        {
+          "name": "GeneralPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/GeneralPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/GeneralPage/Model": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/BleSettingsPage/Controller": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/THSettingsPage/Controller": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/GeneralPage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "IndicatorSettingPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/IndicatorSettingPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/IndicatorSettingPage/Model": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/IndicatorSettingPage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "LoRaApplicationPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/LoRaApplicationPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/LoRaApplicationPage/Model": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/MulticaseGroupPage/Controller": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/MessageTypePage/Controller": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/LoRaApplicationPage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "LoRaPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/LoRaPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/LoRaPage/Model": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/LoRaSettingPage/Controller": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/LoRaApplicationPage/Controller": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/LoRaPage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "LoRaSettingPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/LoRaSettingPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/LoRaSettingPage/Model": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/LoRaSettingPage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "MessageTypePage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/MessageTypePage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/MessageTypePage/Model": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/MessageTypePage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "MulticaseGroupPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/MulticaseGroupPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/MulticaseGroupPage/Model": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/MulticaseGroupPage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "OnOffSettingsPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/OnOffSettingsPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/OnOffSettingsPage/Model": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/OnOffSettingsPage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "PayloadContentPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/PayloadContentSelections": [
+
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "PayloadContentSelections",
+          "subspecs": [
+            {
+              "name": "BeaconContentPage",
+              "subspecs": [
+                {
+                  "name": "Controller",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/BeaconContentPage/Controller/**",
+                  "dependencies": {
+                    "MKLoRaWAN-AF/Functions/PayloadContentSelections/BeaconContentPage/Model": [
+
+                    ]
+                  }
+                },
+                {
+                  "name": "Model",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/BeaconContentPage/Model/**"
+                }
+              ]
+            },
+            {
+              "name": "BXPAccContentPage",
+              "subspecs": [
+                {
+                  "name": "Controller",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/BXPAccContentPage/Controller/**",
+                  "dependencies": {
+                    "MKLoRaWAN-AF/Functions/PayloadContentSelections/BXPAccContentPage/Model": [
+
+                    ]
+                  }
+                },
+                {
+                  "name": "Model",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/BXPAccContentPage/Model/**"
+                }
+              ]
+            },
+            {
+              "name": "BXPBeaconContentPage",
+              "subspecs": [
+                {
+                  "name": "Controller",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/BXPBeaconContentPage/Controller/**",
+                  "dependencies": {
+                    "MKLoRaWAN-AF/Functions/PayloadContentSelections/BXPBeaconContentPage/Model": [
+
+                    ]
+                  }
+                },
+                {
+                  "name": "Model",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/BXPBeaconContentPage/Model/**"
+                }
+              ]
+            },
+            {
+              "name": "BXPButtonContentPage",
+              "subspecs": [
+                {
+                  "name": "Controller",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/BXPButtonContentPage/Controller/**",
+                  "dependencies": {
+                    "MKLoRaWAN-AF/Functions/PayloadContentSelections/BXPButtonContentPage/Model": [
+
+                    ]
+                  }
+                },
+                {
+                  "name": "Model",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/BXPButtonContentPage/Model/**"
+                }
+              ]
+            },
+            {
+              "name": "BXPInfoContentPage",
+              "subspecs": [
+                {
+                  "name": "Controller",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/BXPInfoContentPage/Controller/**",
+                  "dependencies": {
+                    "MKLoRaWAN-AF/Functions/PayloadContentSelections/BXPInfoContentPage/Model": [
+
+                    ]
+                  }
+                },
+                {
+                  "name": "Model",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/BXPInfoContentPage/Model/**"
+                }
+              ]
+            },
+            {
+              "name": "BXPTagContentPage",
+              "subspecs": [
+                {
+                  "name": "Controller",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/BXPTagContentPage/Controller/**",
+                  "dependencies": {
+                    "MKLoRaWAN-AF/Functions/PayloadContentSelections/BXPTagContentPage/Model": [
+
+                    ]
+                  }
+                },
+                {
+                  "name": "Model",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/BXPTagContentPage/Model/**"
+                }
+              ]
+            },
+            {
+              "name": "BXPTHContentPage",
+              "subspecs": [
+                {
+                  "name": "Controller",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/BXPTHContentPage/Controller/**",
+                  "dependencies": {
+                    "MKLoRaWAN-AF/Functions/PayloadContentSelections/BXPTHContentPage/Model": [
+
+                    ]
+                  }
+                },
+                {
+                  "name": "Model",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/BXPTHContentPage/Model/**"
+                }
+              ]
+            },
+            {
+              "name": "MKPirContentPage",
+              "subspecs": [
+                {
+                  "name": "Controller",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/MKPirContentPage/Controller/**",
+                  "dependencies": {
+                    "MKLoRaWAN-AF/Functions/PayloadContentSelections/MKPirContentPage/Model": [
+
+                    ]
+                  }
+                },
+                {
+                  "name": "Model",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/MKPirContentPage/Model/**"
+                }
+              ]
+            },
+            {
+              "name": "MKTofContentPage",
+              "subspecs": [
+                {
+                  "name": "Controller",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/MKTofContentPage/Controller/**",
+                  "dependencies": {
+                    "MKLoRaWAN-AF/Functions/PayloadContentSelections/MKTofContentPage/Model": [
+
+                    ]
+                  }
+                },
+                {
+                  "name": "Model",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/MKTofContentPage/Model/**"
+                }
+              ]
+            },
+            {
+              "name": "OtherTypeContentPage",
+              "subspecs": [
+                {
+                  "name": "Controller",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/OtherTypeContentPage/Controller/**",
+                  "dependencies": {
+                    "MKLoRaWAN-AF/Functions/PayloadContentSelections/OtherTypeContentPage/Model": [
+
+                    ]
+                  }
+                },
+                {
+                  "name": "Model",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/OtherTypeContentPage/Model/**"
+                },
+                {
+                  "name": "View",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/OtherTypeContentPage/View/**"
+                }
+              ]
+            },
+            {
+              "name": "TLMContentPage",
+              "subspecs": [
+                {
+                  "name": "Controller",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/TLMContentPage/Controller/**",
+                  "dependencies": {
+                    "MKLoRaWAN-AF/Functions/PayloadContentSelections/TLMContentPage/Model": [
+
+                    ]
+                  }
+                },
+                {
+                  "name": "Model",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/TLMContentPage/Model/**"
+                }
+              ]
+            },
+            {
+              "name": "UIDContentPage",
+              "subspecs": [
+                {
+                  "name": "Controller",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/UIDContentPage/Controller/**",
+                  "dependencies": {
+                    "MKLoRaWAN-AF/Functions/PayloadContentSelections/UIDContentPage/Model": [
+
+                    ]
+                  }
+                },
+                {
+                  "name": "Model",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/UIDContentPage/Model/**"
+                }
+              ]
+            },
+            {
+              "name": "URLContentPage",
+              "subspecs": [
+                {
+                  "name": "Controller",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/URLContentPage/Controller/**",
+                  "dependencies": {
+                    "MKLoRaWAN-AF/Functions/PayloadContentSelections/URLContentPage/Model": [
+
+                    ]
+                  }
+                },
+                {
+                  "name": "Model",
+                  "source_files": "MKLoRaWAN-AF/Classes/Functions/PayloadContentSelections/URLContentPage/Model/**"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "PeriodicImmediatelyPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/PeriodicImmediatelyPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/PeriodicImmediatelyPage/Model": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/PeriodicImmediatelyPage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "PeriodicScanPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/PeriodicScanPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/PeriodicScanPage/Model": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/PeriodicScanPage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "PeriodicTimingPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/PeriodicTimingPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/PeriodicTimingPage/Model": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/ScanTimePointModel": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/PeriodicTimingPage/Model/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/ScanTimePointModel": [
+
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "ScanAlwaysPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/ScanAlwaysPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/ScanAlwaysPage/Model": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/ScanAlwaysPage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "ScanPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/ScanPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/ScanPage/Model": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/ScanPage/View": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/TabBarPage/Controller": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/ScanPage/Model/**"
+            },
+            {
+              "name": "View",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/ScanPage/View/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/ScanPage/Model": [
+
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "ScanReportPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/ScanReportPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/ScanReportPage/Model": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/TimingImmediatelyPage/Controller": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/PeriodicImmediatelyPage/Controller": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/ScanAlwaysPage/Controller": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/PeriodicScanPage/Controller": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/ScanTimingPage/Controller": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/TimingReportPage/Controller": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/PeriodicTimingPage/Controller": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/ScanReportPage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "ScanTimingPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/ScanTimingPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/ScanTimingPage/Model": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/ScanTimePointModel": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/ScanTimingPage/Model/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/ScanTimePointModel": [
+
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "SelftestPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/SelftestPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/SelftestPage/View": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/SelftestPage/Model": [
+
+                ]
+              }
+            },
+            {
+              "name": "View",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/SelftestPage/View/**"
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/SelftestPage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "SynDataPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/SynDataPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/SynDataPage/View": [
+
+                ]
+              }
+            },
+            {
+              "name": "View",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/SynDataPage/View/**"
+            }
+          ]
+        },
+        {
+          "name": "TabBarPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/TabBarPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/LoRaPage/Controller": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/BleGatewaySettingsPage/Controller": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/GeneralPage/Controller": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/DeviceSettingsPage/Controller": [
+
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "THSettingsPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/THSettingsPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/THSettingsPage/Model": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/THSettingsPage/Model/**"
+            }
+          ]
+        },
+        {
+          "name": "TimingImmediatelyPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/TimingImmediatelyPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/TimingImmediatelyPage/Model": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/ScanTimePointModel": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/TimingImmediatelyPage/Model/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/ScanTimePointModel": [
+
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TimingReportPage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/TimingReportPage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/TimingReportPage/Model": [
+
+                ],
+                "MKLoRaWAN-AF/Functions/ScanTimePointModel": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/TimingReportPage/Model/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/ScanTimePointModel": [
+
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "UpdatePage",
+          "subspecs": [
+            {
+              "name": "Controller",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/UpdatePage/Controller/**",
+              "dependencies": {
+                "MKLoRaWAN-AF/Functions/UpdatePage/Model": [
+
+                ]
+              }
+            },
+            {
+              "name": "Model",
+              "source_files": "MKLoRaWAN-AF/Classes/Functions/UpdatePage/Model/**"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
