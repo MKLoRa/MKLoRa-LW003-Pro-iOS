@@ -23,7 +23,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
 
-- (void)configDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
+- (void)configFilterStatus:(BOOL)isOn
+                  sucBlock:(void (^)(void))sucBlock
+               failedBlock:(void (^)(NSError *error))failedBlock;
+
+/// 配置TLM版本
+/// - Parameters:
+///   - version: 0:Do not filter data.  1:Unencrypted TLM data. 2:Encrypted TLM data.
+///   - sucBlock: 成功回调
+///   - failedBlock: 失败回调
+- (void)configTLMVersion:(NSInteger)version
+                sucBlock:(void (^)(void))sucBlock
+             failedBlock:(void (^)(NSError *error))failedBlock;
 
 @end
 

@@ -41,22 +41,20 @@
     });
 }
 
-- (void)configDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
-    dispatch_async(self.readQueue, ^{
-        if (![self configFilterStatus]) {
-            [self operationFailedBlockWithMsg:@"Config Filter Status Error" block:failedBlock];
-            return;
-        }
-        if (![self configTLMVersion]) {
-            [self operationFailedBlockWithMsg:@"Config TLM Version Error" block:failedBlock];
-            return;
-        }
-        moko_dispatch_main_safe(^{
-            if (sucBlock) {
-                sucBlock();
-            }
-        });
-    });
+- (void)configFilterStatus:(BOOL)isOn
+                  sucBlock:(void (^)(void))sucBlock
+               failedBlock:(void (^)(NSError *error))failedBlock {
+    [MKAFInterface af_configFilterByTLMStatus:isOn
+                                     sucBlock:sucBlock
+                                  failedBlock:failedBlock];
+}
+
+- (void)configTLMVersion:(NSInteger)version
+                sucBlock:(void (^)(void))sucBlock
+             failedBlock:(void (^)(NSError *error))failedBlock {
+    [MKAFInterface af_configFilterByTLMVersion:version
+                                      sucBlock:sucBlock
+                                   failedBlock:failedBlock];
 }
 
 #pragma mark - interface

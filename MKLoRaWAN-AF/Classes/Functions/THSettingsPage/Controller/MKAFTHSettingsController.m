@@ -221,7 +221,7 @@ MKTextFieldCellDelegate>
     MKTextFieldCellModel *cellModel = [[MKTextFieldCellModel alloc] init];
     cellModel.index = 0;
     cellModel.msg = @"Sample Rate";
-    cellModel.textPlaceholder = @"1~60";
+    cellModel.textPlaceholder = @"1~10";
     cellModel.textFieldType = mk_realNumberOnly;
     cellModel.textFieldValue = self.dataModel.sampleRate;
     cellModel.maxLength = 2;

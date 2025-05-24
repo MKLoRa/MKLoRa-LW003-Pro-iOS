@@ -20,11 +20,13 @@
 #import "MKTextButtonCell.h"
 #import "MKTextFieldCell.h"
 #import "MKTableSectionLineHeader.h"
+#import "MKTextSwitchCell.h"
 
 #import "MKAFAlarmPayloadSettingsModel.h"
 
 @interface MKAFAlarmPayloadSettingsController ()<UITableViewDelegate,
 UITableViewDataSource,
+mk_textSwitchCellDelegate,
 MKTextButtonCellDelegate,
 MKTextFieldCellDelegate>
 
@@ -33,6 +35,8 @@ MKTextFieldCellDelegate>
 @property (nonatomic, strong)NSMutableArray *section0List;
 
 @property (nonatomic, strong)NSMutableArray *section1List;
+
+@property (nonatomic, strong)NSMutableArray *section2List;
 
 @property (nonatomic, strong)NSMutableArray *headerList;
 
@@ -65,12 +69,12 @@ MKTextFieldCellDelegate>
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        MKTextButtonCellModel *cellModel = self.section0List[indexPath.row];
+    if (indexPath.section == 1) {
+        MKTextButtonCellModel *cellModel = self.section1List[indexPath.row];
         return [cellModel cellHeightWithContentWidth:kViewWidth];
     }
-    if (indexPath.section == 1) {
-        MKTextFieldCellModel *cellModel = self.section1List[indexPath.row];
+    if (indexPath.section == 2) {
+        MKTextFieldCellModel *cellModel = self.section2List[indexPath.row];
         return [cellModel cellHeightWithContentWidth:kViewWidth];
     }
     
@@ -99,21 +103,44 @@ MKTextFieldCellDelegate>
     if (section == 1) {
         return self.section1List.count;
     }
+    if (section == 2) {
+        return self.section2List.count;
+    }
     
     return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        MKTextButtonCell *cell = [MKTextButtonCell initCellWithTableView:tableView];
+        MKTextSwitchCell *cell = [MKTextSwitchCell initCellWithTableView:tableView];
         cell.dataModel = self.section0List[indexPath.row];
         cell.delegate = self;
         return cell;
     }
+    if (indexPath.section == 0) {
+        MKTextButtonCell *cell = [MKTextButtonCell initCellWithTableView:tableView];
+        cell.dataModel = self.section1List[indexPath.row];
+        cell.delegate = self;
+        return cell;
+    }
     MKTextFieldCell *cell = [MKTextFieldCell initCellWithTableView:tableView];
-    cell.dataModel = self.section1List[indexPath.row];
+    cell.dataModel = self.section2List[indexPath.row];
     cell.delegate = self;
     return cell;
+}
+
+#pragma mark - mk_textSwitchCellDelegate
+/// 开关状态发生改变了
+/// @param isOn 当前开关状态
+/// @param index 当前cell所在的index
+- (void)mk_textSwitchCellStatusChanged:(BOOL)isOn index:(NSInteger)index {
+    if (index == 0) {
+        //Function Switch
+        self.dataModel.isOn = isOn;
+        MKTextSwitchCellModel *cellModel = self.section0List[0];
+        cellModel.isOn = isOn;
+        return;
+    }
 }
 
 #pragma mark - MKTextButtonCellDelegate
@@ -127,7 +154,7 @@ MKTextFieldCellDelegate>
     if (index == 0) {
         //Duplicate Alarm Data Filter
         self.dataModel.filter = dataListIndex;
-        MKTextButtonCellModel *cellModel = self.section0List[0];
+        MKTextButtonCellModel *cellModel = self.section1List[0];
         cellModel.dataListIndex = dataListIndex;
         return;
     }
@@ -141,7 +168,7 @@ MKTextFieldCellDelegate>
     if (index == 0) {
         //Alarm Data Filter Period
         self.dataModel.period = value;
-        MKTextFieldCellModel *cellModel = self.section1List[0];
+        MKTextFieldCellModel *cellModel = self.section2List[0];
         cellModel.textFieldValue = value;
         return;
     }
@@ -180,8 +207,9 @@ MKTextFieldCellDelegate>
 - (void)loadSectionDatas {
     [self loadSection0Datas];
     [self loadSection1Datas];
+    [self loadSection2Datas];
     
-    for (NSInteger i = 0; i < 2; i ++) {
+    for (NSInteger i = 0; i < 3; i ++) {
         MKTableSectionLineHeaderModel *headerModel = [[MKTableSectionLineHeaderModel alloc] init];
         [self.headerList addObject:headerModel];
     }
@@ -190,15 +218,23 @@ MKTextFieldCellDelegate>
 }
 
 - (void)loadSection0Datas {
+    MKTextSwitchCellModel *cellModel = [[MKTextSwitchCellModel alloc] init];
+    cellModel.index = 0;
+    cellModel.msg = @"Function Switch";
+    cellModel.isOn = self.dataModel.isOn;
+    [self.section0List addObject:cellModel];
+}
+
+- (void)loadSection1Datas {
     MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
     cellModel.index = 0;
     cellModel.msg = @"Duplicate Data Filter";
     cellModel.dataList = @[@"No",@"MAC",@"MAC+Data Type",@"MAC+Raw Data"];
     cellModel.dataListIndex = self.dataModel.filter;
-    [self.section0List addObject:cellModel];
+    [self.section1List addObject:cellModel];
 }
 
-- (void)loadSection1Datas {
+- (void)loadSection2Datas {
     MKTextFieldCellModel *cellModel = [[MKTextFieldCellModel alloc] init];
     cellModel.index = 0;
     cellModel.msg = @"Alarm Data Filter Period";
@@ -208,7 +244,7 @@ MKTextFieldCellDelegate>
     cellModel.textFieldType = mk_realNumberOnly;
     cellModel.maxLength = 1;
     cellModel.unit = @"s";
-    [self.section1List addObject:cellModel];
+    [self.section2List addObject:cellModel];
 }
 
 #pragma mark - UI
@@ -247,6 +283,13 @@ MKTextFieldCellDelegate>
         _section1List = [NSMutableArray array];
     }
     return _section1List;
+}
+
+- (NSMutableArray *)section2List {
+    if (!_section2List) {
+        _section2List = [NSMutableArray array];
+    }
+    return _section2List;
 }
 
 - (NSMutableArray *)headerList {

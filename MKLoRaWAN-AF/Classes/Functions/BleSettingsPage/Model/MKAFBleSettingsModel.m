@@ -224,7 +224,7 @@
 }
 
 - (BOOL)validParams {
-    if (self.advName.length > 16) {
+    if (self.advName.length > 20) {
         return NO;
     }
     if (!ValidStr(self.timeout) || [self.timeout integerValue] < 1 || [self.timeout integerValue] > 60) {

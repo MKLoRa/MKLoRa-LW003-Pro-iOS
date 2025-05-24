@@ -25,6 +25,10 @@
 
 - (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock {
     dispatch_async(self.readQueue, ^{
+        if (![self readAlarmSwitch]) {
+            [self operationFailedBlockWithMsg:@"Read Alarm Switch Error" block:failedBlock];
+            return;
+        }
         if (![self readDuplicateDataFilter]) {
             [self operationFailedBlockWithMsg:@"Read Duplicate Data Filter Error" block:failedBlock];
             return;
@@ -48,6 +52,10 @@
             [self operationFailedBlockWithMsg:@"Opps！Save failed. Please check the input characters and try again." block:failedBlock];
             return;
         }
+        if (![self configAlarmSwitch]) {
+            [self operationFailedBlockWithMsg:@"Config Alarm Switch Error" block:failedBlock];
+            return;
+        }
         if (![self configDuplicateDataFilter]) {
             [self operationFailedBlockWithMsg:@"Config Duplicate Data Filter Error" block:failedBlock];
             return;
@@ -66,6 +74,31 @@
 }
 
 #pragma mark - interface
+- (BOOL)readAlarmSwitch {
+    __block BOOL success = NO;
+    [MKAFInterface af_readAlarmSwitchStatusWithSucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        self.isOn = [returnData[@"result"][@"isOn"] boolValue];
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)configAlarmSwitch {
+    __block BOOL success = NO;
+    [MKAFInterface af_configAlarmSwitchStatus:self.isOn sucBlock:^{
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
 - (BOOL)readDuplicateDataFilter {
     __block BOOL success = NO;
     [MKAFInterface af_readAlarmDuplicateDataFilterWithSucBlock:^(id  _Nonnull returnData) {

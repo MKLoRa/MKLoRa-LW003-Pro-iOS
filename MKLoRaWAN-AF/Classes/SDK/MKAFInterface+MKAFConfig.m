@@ -320,7 +320,7 @@ static NSInteger const maxDataLen = 100;
 + (void)af_configDeviceName:(NSString *)deviceName
                    sucBlock:(void (^)(void))sucBlock
                 failedBlock:(void (^)(NSError *error))failedBlock {
-    if (![deviceName isKindOfClass:NSString.class] || deviceName.length > 16) {
+    if (![deviceName isKindOfClass:NSString.class] || deviceName.length > 20) {
         [MKBLEBaseSDKAdopter operationParamsErrorBlock:failedBlock];
         return;
     }

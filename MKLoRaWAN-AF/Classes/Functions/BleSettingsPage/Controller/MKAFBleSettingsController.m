@@ -351,8 +351,8 @@ MKAFBroadcastTxPowerCellDelegate>
     MKTextFieldCellModel *cellModel1 = [[MKTextFieldCellModel alloc] init];
     cellModel1.index = 0;
     cellModel1.msg = @"ADV Name";
-    cellModel1.maxLength = 16;
-    cellModel1.textPlaceholder = @"0 ~ 16Characters";
+    cellModel1.maxLength = 20;
+    cellModel1.textPlaceholder = @"0 ~ 20 Characters";
     cellModel1.textFieldType = mk_normal;
     cellModel1.textFieldValue = self.dataModel.advName;
     [self.section0List addObject:cellModel1];

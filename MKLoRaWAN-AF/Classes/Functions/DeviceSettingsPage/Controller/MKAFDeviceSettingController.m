@@ -105,6 +105,10 @@ MKTextFieldCellDelegate>
     [[NSNotificationCenter defaultCenter] postNotificationName:@"mk_af_popToRootViewControllerNotification" object:nil];
 }
 
+- (void)rightButtonMethod {
+    [self saveDataToDevice];
+}
+
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 5) {
@@ -261,7 +265,8 @@ MKTextFieldCellDelegate>
         //Current Time Zone
         self.dataModel.timeZone = index;
         MKTextButtonCellModel *cellModel = self.section2List[0];
-        cellModel.dataListIndex = index;return;
+        cellModel.dataListIndex = index;
+        return;
     }
     if (index == 1) {
         //Low Power Prompt
@@ -314,6 +319,20 @@ MKTextFieldCellDelegate>
     [self.dataModel readDataWithSucBlock:^{
         [[MKHudManager share] hide];
         [self updateCellStates];
+    } failedBlock:^(NSError * _Nonnull error) {
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:error.userInfo[@"errorInfo"]];
+    }];
+}
+
+- (void)saveDataToDevice {
+    [[MKHudManager share] showHUDWithTitle:@"Config..." inView:self.view isPenetration:NO];
+    @weakify(self);
+    [self.dataModel configDataWithSucBlock:^{
+        @strongify(self);
+        [[MKHudManager share] hide];
+        [self.view showCentralToast:@"Success"];
     } failedBlock:^(NSError * _Nonnull error) {
         @strongify(self);
         [[MKHudManager share] hide];
@@ -481,6 +500,7 @@ MKTextFieldCellDelegate>
 #pragma mark - UI
 - (void)loadSubViews {
     self.defaultTitle = @"Device Settings";
+    [self.rightButton setImage:LOADICON(@"MKLoRaWAN-AF", @"MKAFDeviceSettingController", @"af_slotSaveIcon.png") forState:UIControlStateNormal];
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);

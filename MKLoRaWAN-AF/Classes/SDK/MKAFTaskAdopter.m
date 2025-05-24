@@ -168,9 +168,9 @@ NSString *const mk_af_contentKey = @"mk_af_contentKey";
         operationID = mk_af_taskReadHeartbeatIntervalOperation;
     }else if ([cmd isEqualToString:@"0023"]) {
         //读取指示灯开关
-        BOOL lowPower = [[content substringWithRange:NSMakeRange(0, 2)] isEqualToString:@"1"];
-        BOOL charged = [[content substringWithRange:NSMakeRange(2, 2)] isEqualToString:@"1"];
-        BOOL broadcast = [[content substringWithRange:NSMakeRange(4, 2)] isEqualToString:@"1"];
+        BOOL lowPower = [[content substringWithRange:NSMakeRange(0, 2)] isEqualToString:@"01"];
+        BOOL charged = [[content substringWithRange:NSMakeRange(2, 2)] isEqualToString:@"01"];
+        BOOL broadcast = [[content substringWithRange:NSMakeRange(4, 2)] isEqualToString:@"01"];
         resultDic = @{
             @"lowPower":@(lowPower),
             @"charged":@(charged),
@@ -1674,6 +1674,9 @@ NSString *const mk_af_contentKey = @"mk_af_contentKey";
     }else if ([cmd isEqualToString:@"0026"]) {
         //配置关机信息包开关
         operationID = mk_af_taskConfigShutDownPayloadStatusOperation;
+    }else if ([cmd isEqualToString:@"002a"]) {
+        //配置断电续传功能
+        operationID = mk_af_taskConfigContinuityTransferFunctionStatusOperation;
     }else if ([cmd isEqualToString:@"0100"]) {
         //清除电池电量数据
         operationID = mk_af_taskBatteryResetOperation;

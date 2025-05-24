@@ -211,7 +211,7 @@ NS_ASSUME_NONNULL_BEGIN
              failedBlock:(void (^)(NSError *error))failedBlock;
 
 /// Configure the broadcast name of the device.
-/// @param deviceName 0~16 ascii characters
+/// @param deviceName 0~20 ascii characters
 /// @param sucBlock Success callback
 /// @param failedBlock Failure callback
 + (void)af_configDeviceName:(NSString *)deviceName
