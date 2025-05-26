@@ -117,7 +117,7 @@
 
 - (BOOL)configTimeZone {
     __block BOOL success = NO;
-    [MKAFInterface af_configTimeZone:(index - 24) sucBlock:^{
+    [MKAFInterface af_configTimeZone:(self.timeZone - 24) sucBlock:^{
         success = YES;
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {

@@ -263,7 +263,7 @@ MKTextFieldCellDelegate>
                                 value:(NSString *)value {
     if (index == 0) {
         //Current Time Zone
-        self.dataModel.timeZone = index;
+        self.dataModel.timeZone = dataListIndex;
         MKTextButtonCellModel *cellModel = self.section2List[0];
         cellModel.dataListIndex = index;
         return;
@@ -355,7 +355,7 @@ MKTextFieldCellDelegate>
     promptModel.noteMsg = [NSString stringWithFormat:@"*When the battery is less than or equal to %@, the red LED will flash once every 30 seconds.",promptModel.dataList[self.dataModel.prompt]];
     
     MKTextButtonCellModel *chargeModel = self.section6List[0];
-    timeZoneModel.dataListIndex = self.dataModel.chargePriority;
+    chargeModel.dataListIndex = self.dataModel.chargePriority;
     
     [self.tableView reloadData];
     

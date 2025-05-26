@@ -482,7 +482,7 @@ NSString *const mk_af_contentKey = @"mk_af_contentKey";
         operationID = mk_af_taskReadTxPowerOperation;
     }else if ([cmd isEqualToString:@"0206"]) {
         //读取设备广播名称
-        NSData *nameData = [data subdataWithRange:NSMakeRange(4, data.length - 4)];
+        NSData *nameData = [data subdataWithRange:NSMakeRange(5, data.length - 5)];
         NSString *deviceName = [[NSString alloc] initWithData:nameData encoding:NSUTF8StringEncoding];
         resultDic = @{
             @"deviceName":(MKValidStr(deviceName) ? deviceName : @""),
