@@ -117,7 +117,7 @@ MKTextFieldCellDelegate>
         cell.delegate = self;
         return cell;
     }
-    if (indexPath.section == 0) {
+    if (indexPath.section == 1) {
         MKTextButtonCell *cell = [MKTextButtonCell initCellWithTableView:tableView];
         cell.dataModel = self.section1List[indexPath.row];
         cell.delegate = self;
@@ -228,7 +228,7 @@ MKTextFieldCellDelegate>
 - (void)loadSection1Datas {
     MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
     cellModel.index = 0;
-    cellModel.msg = @"Duplicate Data Filter";
+    cellModel.msg = @"Duplicate Alarm Data Filter";
     cellModel.dataList = @[@"No",@"MAC",@"MAC+Data Type",@"MAC+Raw Data"];
     cellModel.dataListIndex = self.dataModel.filter;
     [self.section1List addObject:cellModel];
