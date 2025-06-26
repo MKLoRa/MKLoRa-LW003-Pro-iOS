@@ -145,7 +145,7 @@ NS_ASSUME_NONNULL_BEGIN
                                        failedBlock:(void (^)(NSError *error))failedBlock;
 
 /// Low Power Non-charge Min. Sample Interval.
-/// @param interval 1Min~14400Mins.
+/// @param interval 1Min~1440Mins.
 /// @param sucBlock Success callback
 /// @param failedBlock Failure callback
 + (void)af_configLowPowerNonChargeMinSampleInterval:(NSInteger)interval

@@ -175,15 +175,15 @@ MKLoRaSettingCHCellDelegate>
     }
     if (section == 4) {
         //CH
-        if (self.dataModel.region == 1 || self.dataModel.region == 2 || self.dataModel.region == 8) {
-            //US915、AU915、CN470
+        if (self.dataModel.region == 1 || self.dataModel.region == 5) {
+            //US915、AU915
             return self.optionsList1.count;
         }
         return 0;
     }
     if (section == 5) {
         //Duty-cycle
-        if (self.dataModel.region == 3 || self.dataModel.region == 4 || self.dataModel.region == 5 || self.dataModel.region == 9) {
+        if (self.dataModel.region == 2 || self.dataModel.region == 6) {
             //EU868,CN779, EU433,RU864
             return self.optionsList2.count;
         }
@@ -192,9 +192,8 @@ MKLoRaSettingCHCellDelegate>
     if (section == 6) {
         //DR For Join
         if (self.dataModel.region == 2 || self.dataModel.region == 3 || self.dataModel.region == 4
-            || self.dataModel.region == 5 || self.dataModel.region == 6 || self.dataModel.region == 7
-            || self.dataModel.region == 9) {
-            //CN470, CN779, EU433, EU868,KR920, IN865, RU864
+            || self.dataModel.region == 6) {
+            //EU868,KR920, IN865, RU864
             return self.optionsList3.count;
         }
         return 0;

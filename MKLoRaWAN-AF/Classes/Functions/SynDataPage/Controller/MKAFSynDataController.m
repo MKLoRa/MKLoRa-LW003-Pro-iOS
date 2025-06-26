@@ -593,7 +593,7 @@ mk_af_storageDataDelegate>
         NSString *macAddress = [NSString stringWithFormat:@"%@:%@:%@:%@:%@:%@",[tempMac substringWithRange:NSMakeRange(0, 2)],[tempMac substringWithRange:NSMakeRange(2, 2)],[tempMac substringWithRange:NSMakeRange(4, 2)],[tempMac substringWithRange:NSMakeRange(6, 2)],[tempMac substringWithRange:NSMakeRange(8, 2)],[tempMac substringWithRange:NSMakeRange(10, 2)]];
         
         NSNumber *rssi = [MKBLEBaseSDKAdopter signedHexTurnString:[subContent substringWithRange:NSMakeRange(24, 2)]];
-        NSString *rawData = [subContent substringFromIndex:26];
+        NSString *rawData = [@"0x" stringByAppendingString:[subContent substringFromIndex:26]];
         
         index += subLen * 2;
         NSDictionary *dic = @{
@@ -602,7 +602,7 @@ mk_af_storageDataDelegate>
             @"deviceType":deviceType,
             @"macAddress":macAddress,
             @"rssi":[NSString stringWithFormat:@"%@",rssi],
-            @"rawData":subContent,
+            @"rawData":rawData,
         };
         [dataList addObject:dic];
     }

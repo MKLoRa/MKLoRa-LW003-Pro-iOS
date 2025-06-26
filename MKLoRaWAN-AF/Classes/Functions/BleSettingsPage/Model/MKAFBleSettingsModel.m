@@ -71,12 +71,13 @@
             [self operationFailedBlockWithMsg:@"Config Broadcast Timeout Error" block:failedBlock];
             return;
         }
-        if (![self configNeedPassword]) {
-            [self operationFailedBlockWithMsg:@"Config Need Password Error" block:failedBlock];
-            return;
-        }
         if (![self configTxPower]) {
             [self operationFailedBlockWithMsg:@"Config Tx Power Error" block:failedBlock];
+            return;
+        }
+        //最新固件，蓝牙密码开关由关变为开时，蓝牙会自动断开连接，所以最后一条数据发送这个
+        if (![self configNeedPassword]) {
+            [self operationFailedBlockWithMsg:@"Config Need Password Error" block:failedBlock];
             return;
         }
         moko_dispatch_main_safe(^{

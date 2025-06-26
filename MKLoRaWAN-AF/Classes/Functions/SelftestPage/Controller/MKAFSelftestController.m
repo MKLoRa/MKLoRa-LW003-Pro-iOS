@@ -141,7 +141,7 @@ MKAFSelftestVoltageThresholdCellDelegate>
 }
 
 #pragma mark - MKADSelftestVoltageThresholdCellDelegate
-- (void)ad_selftestVoltageThresholdCell_thresholdChanged:(NSInteger)index threshold:(NSInteger)threshold {
+- (void)af_selftestVoltageThresholdCell_thresholdChanged:(NSInteger)index threshold:(NSInteger)threshold {
     if (index == 0) {
         //Low-Power Voltage Threshold
         self.dataModel.voltageThreshold = threshold;
@@ -226,9 +226,9 @@ MKAFSelftestVoltageThresholdCellDelegate>
     MKTextFieldCellModel *cellModel1 = [[MKTextFieldCellModel alloc] init];
     cellModel1.index = 0;
     cellModel1.msg = @"Min. Sample Interval";
-    cellModel1.textPlaceholder = @"1~14400";
+    cellModel1.textPlaceholder = @"1~1440";
     cellModel1.textFieldType = mk_realNumberOnly;
-    cellModel1.maxLength = 5;
+    cellModel1.maxLength = 4;
     cellModel1.unit = @"Mins";
     cellModel1.textFieldValue = self.dataModel.sampleInterval;
     [self.section3List addObject:cellModel1];

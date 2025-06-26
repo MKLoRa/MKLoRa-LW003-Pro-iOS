@@ -99,7 +99,7 @@ MKAFTabBarControllerDelegate>
 #pragma mark - super method
 
 - (void)rightButtonMethod {
-    UIViewController *vc = [[CTMediator sharedInstance] CTMediator_LORAWAN_af_AboutPage];
+    UIViewController *vc = [[CTMediator sharedInstance] CTMediator_LORAWAN_AF_AboutPage];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

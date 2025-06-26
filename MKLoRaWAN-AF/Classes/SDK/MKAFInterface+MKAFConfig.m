@@ -209,7 +209,7 @@ static NSInteger const maxDataLen = 100;
 + (void)af_configLowPowerNonChargeMinSampleInterval:(NSInteger)interval
                                            sucBlock:(void (^)(void))sucBlock
                                         failedBlock:(void (^)(NSError *error))failedBlock {
-    if (interval < 1 || interval > 14400) {
+    if (interval < 1 || interval > 1440) {
         [MKBLEBaseSDKAdopter operationParamsErrorBlock:failedBlock];
         return;
     }
@@ -1575,7 +1575,7 @@ static NSInteger const maxDataLen = 100;
 + (void)af_configAlarmSwitchStatus:(BOOL)isOn
                           sucBlock:(void (^)(void))sucBlock
                        failedBlock:(void (^)(NSError *error))failedBlock {
-    NSString *commandString = (isOn ? @"ed0107080101" : @"ed01070080100");
+    NSString *commandString = (isOn ? @"ed0107080101" : @"ed0107080100");
     [self configDataWithTaskID:mk_af_taskConfigAlarmSwitchStatusOperation
                           data:commandString
                       sucBlock:sucBlock

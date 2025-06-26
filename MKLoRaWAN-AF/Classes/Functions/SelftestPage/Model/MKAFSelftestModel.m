@@ -84,7 +84,7 @@
     if (self.voltageThreshold < 0 || self.voltageThreshold > 20) {
         return NO;
     }
-    if (!ValidStr(self.sampleInterval) || [self.sampleInterval integerValue] < 1 || [self.sampleInterval integerValue] > 14400) {
+    if (!ValidStr(self.sampleInterval) || [self.sampleInterval integerValue] < 1 || [self.sampleInterval integerValue] > 1440) {
         return NO;
     }
     if (!ValidStr(self.sampleTimes) || [self.sampleTimes integerValue] < 1 || [self.sampleTimes integerValue] > 100) {
