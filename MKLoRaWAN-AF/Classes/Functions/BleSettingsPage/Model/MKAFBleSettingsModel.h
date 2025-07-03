@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign)NSInteger txPower;
 
+@property (nonatomic, assign)BOOL beaconMode;
+
 @property (nonatomic, copy)NSString *timeout;
 
 @property (nonatomic, assign)BOOL needPassword;

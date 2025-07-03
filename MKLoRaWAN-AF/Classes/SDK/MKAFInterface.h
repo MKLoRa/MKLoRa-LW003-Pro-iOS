@@ -384,6 +384,17 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)af_readBroadcastTimeoutWithSucBlock:(void (^)(id returnData))sucBlock
                                 failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// Beacon status.
+/*
+ @{
+    @"isOn":@(YES)
+ }
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)af_readBeaconStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                            failedBlock:(void (^)(NSError *error))failedBlock;
+
 /// Read the Adv Interval of the device.
 /*
  @{
@@ -1682,6 +1693,8 @@ NS_ASSUME_NONNULL_BEGIN
  @"hallCount":@(YES),
  @"motionCount":@(YES),
  @"axisData":@(YES),
+ @"temperature":@(YES),
+ @"humidity":@(YES),
  @"battery":@(YES),
  @"tagID":@(YES),
  @"deviceName":@(YES),

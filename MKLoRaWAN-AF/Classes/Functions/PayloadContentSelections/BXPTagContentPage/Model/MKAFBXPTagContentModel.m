@@ -64,6 +64,8 @@
         self.hallCount = [returnData[@"result"][@"hallCount"] boolValue];
         self.motionCount = [returnData[@"result"][@"motionCount"] boolValue];
         self.axisData = [returnData[@"result"][@"axisData"] boolValue];
+        self.temperature = [returnData[@"result"][@"temperature"] boolValue];
+        self.humidity = [returnData[@"result"][@"humidity"] boolValue];
         self.battery = [returnData[@"result"][@"battery"] boolValue];
         self.tagID = [returnData[@"result"][@"tagID"] boolValue];
         self.deviceName = [returnData[@"result"][@"deviceName"] boolValue];

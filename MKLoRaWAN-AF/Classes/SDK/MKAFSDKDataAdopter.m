@@ -549,8 +549,8 @@
     if (![protocol conformsToProtocol:@protocol(mk_af_bxpTagContentProtocol)]) {
         return @"";
     }
-    NSString *lowString = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@",(protocol.battery ? @"1" : @"0"),(protocol.axisData ? @"1" : @"0"),(protocol.motionCount ? @"1" : @"0"),(protocol.hallCount ? @"1" : @"0"),(protocol.sensorStatus ? @"1" : @"0"),(protocol.timestamp ? @"1" : @"0"),(protocol.rssi ? @"1" : @"0"),(protocol.macAddress ? @"1" : @"0")];
-    NSString *highString = [NSString stringWithFormat:@"%@%@%@%@%@",@"0000",(protocol.response ? @"1" : @"0"),(protocol.advertising ? @"1" : @"0"),(protocol.deviceName ? @"1" : @"0"),(protocol.tagID ? @"1" : @"0")];
+    NSString *lowString = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@",(protocol.temperature ? @"1" : @"0"),(protocol.axisData ? @"1" : @"0"),(protocol.motionCount ? @"1" : @"0"),(protocol.hallCount ? @"1" : @"0"),(protocol.sensorStatus ? @"1" : @"0"),(protocol.timestamp ? @"1" : @"0"),(protocol.rssi ? @"1" : @"0"),(protocol.macAddress ? @"1" : @"0")];
+    NSString *highString = [NSString stringWithFormat:@"%@%@%@%@%@%@%@",@"00",(protocol.response ? @"1" : @"0"),(protocol.advertising ? @"1" : @"0"),(protocol.deviceName ? @"1" : @"0"),(protocol.tagID ? @"1" : @"0"),(protocol.battery ? @"1" : @"0"),(protocol.humidity ? @"1" : @"0")];
     NSString *hexLow = [MKBLEBaseSDKAdopter getHexByBinary:lowString];
     NSString *hexHigh = [MKBLEBaseSDKAdopter getHexByBinary:highString];
     return [hexHigh stringByAppendingString:hexLow];

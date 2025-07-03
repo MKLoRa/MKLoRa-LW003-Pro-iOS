@@ -51,6 +51,8 @@ MKAFBroadcastTxPowerCellDelegate>
 
 @property (nonatomic, strong)NSMutableArray *section4List;
 
+@property (nonatomic, strong)NSMutableArray *section5List;
+
 @property (nonatomic, strong)NSMutableArray *headerList;
 
 @property (nonatomic, strong)MKAFBleSettingsModel *dataModel;
@@ -100,7 +102,7 @@ MKAFBroadcastTxPowerCellDelegate>
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0 || section == 3) {
+    if (section == 0 || section == 4) {
         return 10.f;
     }
     return 0.f;
@@ -113,7 +115,7 @@ MKAFBroadcastTxPowerCellDelegate>
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 4 && indexPath.row == 0 && [MKAFConnectModel shared].hasPassword) {
+    if (indexPath.section == 5 && indexPath.row == 0 && [MKAFConnectModel shared].hasPassword) {
         //有登录密码进来的才能修改密码，无登录密码进来的点击修改密码不响应
         [self configPassword];
         return;
@@ -139,7 +141,10 @@ MKAFBroadcastTxPowerCellDelegate>
         return self.section3List.count;
     }
     if (section == 4) {
-        return (self.dataModel.needPassword ? self.section4List.count : 0);
+        return self.section4List.count;
+    }
+    if (section == 5) {
+        return (self.dataModel.needPassword ? self.section5List.count : 0);
     }
     
     return 0;
@@ -159,19 +164,25 @@ MKAFBroadcastTxPowerCellDelegate>
         return cell;
     }
     if (indexPath.section == 2) {
-        MKTextFieldCell *cell = [MKTextFieldCell initCellWithTableView:tableView];
+        MKTextSwitchCell *cell = [MKTextSwitchCell initCellWithTableView:tableView];
         cell.dataModel = self.section2List[indexPath.row];
         cell.delegate = self;
         return cell;
     }
     if (indexPath.section == 3) {
-        MKTextSwitchCell *cell = [MKTextSwitchCell initCellWithTableView:tableView];
+        MKTextFieldCell *cell = [MKTextFieldCell initCellWithTableView:tableView];
         cell.dataModel = self.section3List[indexPath.row];
         cell.delegate = self;
         return cell;
     }
+    if (indexPath.section == 4) {
+        MKTextSwitchCell *cell = [MKTextSwitchCell initCellWithTableView:tableView];
+        cell.dataModel = self.section4List[indexPath.row];
+        cell.delegate = self;
+        return cell;
+    }
     MKNormalTextCell *cell = [MKNormalTextCell initCellWithTableView:tableView];
-    cell.dataModel = self.section4List[indexPath.row];
+    cell.dataModel = self.section5List[indexPath.row];
     return cell;
 }
 
@@ -197,7 +208,7 @@ MKAFBroadcastTxPowerCellDelegate>
     if (index == 2) {
         //Broadcast Timeout
         self.dataModel.timeout = value;
-        MKTextFieldCellModel *cellModel = self.section2List[0];
+        MKTextFieldCellModel *cellModel = self.section3List[0];
         cellModel.textFieldValue = value;
         return;
     }
@@ -209,11 +220,18 @@ MKAFBroadcastTxPowerCellDelegate>
 /// @param index 当前cell所在的index
 - (void)mk_textSwitchCellStatusChanged:(BOOL)isOn index:(NSInteger)index {
     if (index == 0) {
+        //Beacon Mode
+        self.dataModel.beaconMode = isOn;
+        MKTextSwitchCellModel *cellModel = self.section2List[0];
+        cellModel.isOn = isOn;
+        return;
+    }
+    if (index == 1) {
         //Login Password
         self.dataModel.needPassword = isOn;
-        MKTextSwitchCellModel *cellModel = self.section3List[0];
+        MKTextSwitchCellModel *cellModel = self.section4List[0];
         cellModel.isOn = isOn;
-        [self.tableView mk_reloadSection:4 withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView mk_reloadSection:5 withRowAnimation:UITableViewRowAnimationNone];
         return;
     }
 }
@@ -338,8 +356,9 @@ MKAFBroadcastTxPowerCellDelegate>
     [self loadSection2Datas];
     [self loadSection3Datas];
     [self loadSection4Datas];
+    [self loadSection5Datas];
     
-    for (NSInteger i = 0; i < 5; i ++) {
+    for (NSInteger i = 0; i < 6; i ++) {
         MKTableSectionLineHeaderModel *headerModel = [[MKTableSectionLineHeaderModel alloc] init];
         [self.headerList addObject:headerModel];
     }
@@ -375,6 +394,14 @@ MKAFBroadcastTxPowerCellDelegate>
 }
 
 - (void)loadSection2Datas {
+    MKTextSwitchCellModel *cellModel = [[MKTextSwitchCellModel alloc] init];
+    cellModel.index = 0;
+    cellModel.msg = @"Beacon Mode";
+    cellModel.isOn = self.dataModel.beaconMode;
+    [self.section2List addObject:cellModel];
+}
+
+- (void)loadSection3Datas {
     MKTextFieldCellModel *cellModel = [[MKTextFieldCellModel alloc] init];
     cellModel.index = 2;
     cellModel.msg = @"Broadcast Timeout";
@@ -383,22 +410,22 @@ MKAFBroadcastTxPowerCellDelegate>
     cellModel.textPlaceholder = @"1 ~ 60";
     cellModel.textFieldType = mk_realNumberOnly;
     cellModel.textFieldValue = self.dataModel.timeout;
-    [self.section2List addObject:cellModel];
-}
-
-- (void)loadSection3Datas {
-    MKTextSwitchCellModel *cellModel = [[MKTextSwitchCellModel alloc] init];
-    cellModel.index = 0;
-    cellModel.msg = @"Login Password";
-    cellModel.isOn = self.dataModel.needPassword;
     [self.section3List addObject:cellModel];
 }
 
 - (void)loadSection4Datas {
+    MKTextSwitchCellModel *cellModel = [[MKTextSwitchCellModel alloc] init];
+    cellModel.index = 1;
+    cellModel.msg = @"Login Password";
+    cellModel.isOn = self.dataModel.needPassword;
+    [self.section4List addObject:cellModel];
+}
+
+- (void)loadSection5Datas {
     MKNormalTextCellModel *cellModel = [[MKNormalTextCellModel alloc] init];
     cellModel.leftMsg = @"Change Password";
     cellModel.showRightIcon = YES;
-    [self.section4List addObject:cellModel];
+    [self.section5List addObject:cellModel];
 }
 
 #pragma mark - UI
@@ -460,6 +487,13 @@ MKAFBroadcastTxPowerCellDelegate>
         _section4List = [NSMutableArray array];
     }
     return _section4List;
+}
+
+- (NSMutableArray *)section5List {
+    if (!_section5List) {
+        _section5List = [NSMutableArray array];
+    }
+    return _section5List;
 }
 
 - (NSMutableArray *)headerList {

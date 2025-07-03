@@ -389,6 +389,10 @@ typedef NS_ENUM(NSInteger, mk_af_charingPriority) {
 
 @property (nonatomic, assign)BOOL axisData;
 
+@property (nonatomic, assign)BOOL temperature;
+
+@property (nonatomic, assign)BOOL humidity;
+
 @property (nonatomic, assign)BOOL battery;
 
 @property (nonatomic, assign)BOOL tagID;

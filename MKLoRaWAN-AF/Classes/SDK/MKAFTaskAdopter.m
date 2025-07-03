@@ -469,6 +469,13 @@ NSString *const mk_af_contentKey = @"mk_af_contentKey";
             @"timeout":[MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, content.length)],
         };
         operationID = mk_af_taskReadBroadcastTimeoutOperation;
+    }else if ([cmd isEqualToString:@"0203"]) {
+        //读取Beacon模式开关
+        BOOL isOn = ([content isEqualToString:@"01"]);
+        resultDic = @{
+            @"isOn":@(isOn)
+        };
+        operationID = mk_af_taskReadBeaconStatusOperation;
     }else if ([cmd isEqualToString:@"0204"]) {
         //读取广播间隔
         resultDic = @{
@@ -1422,13 +1429,14 @@ NSString *const mk_af_contentKey = @"mk_af_contentKey";
         BOOL hallCount = [[binaryLow substringWithRange:NSMakeRange(3, 1)] isEqualToString:@"1"];
         BOOL motionCount = [[binaryLow substringWithRange:NSMakeRange(2, 1)] isEqualToString:@"1"];
         BOOL axisData = [[binaryLow substringWithRange:NSMakeRange(1, 1)] isEqualToString:@"1"];
-        BOOL battery = [[binaryLow substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"1"];
+        BOOL temperature = [[binaryLow substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"1"];
         
-
-        BOOL tagID = [[binaryHigh substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"1"];
-        BOOL deviceName = [[binaryHigh substringWithRange:NSMakeRange(6, 1)] isEqualToString:@"1"];
-        BOOL advertising = [[binaryHigh substringWithRange:NSMakeRange(5, 1)] isEqualToString:@"1"];
-        BOOL response = [[binaryHigh substringWithRange:NSMakeRange(4, 1)] isEqualToString:@"1"];
+        BOOL humidity = [[binaryHigh substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"1"];
+        BOOL battery = [[binaryHigh substringWithRange:NSMakeRange(6, 1)] isEqualToString:@"1"];
+        BOOL tagID = [[binaryHigh substringWithRange:NSMakeRange(5, 1)] isEqualToString:@"1"];
+        BOOL deviceName = [[binaryHigh substringWithRange:NSMakeRange(4, 1)] isEqualToString:@"1"];
+        BOOL advertising = [[binaryHigh substringWithRange:NSMakeRange(3, 1)] isEqualToString:@"1"];
+        BOOL response = [[binaryHigh substringWithRange:NSMakeRange(2, 1)] isEqualToString:@"1"];
         
         NSInteger contentValue = [MKBLEBaseSDKAdopter getDecimalWithHex:content range:NSMakeRange(0, content.length)];
         resultDic = @{
@@ -1439,6 +1447,8 @@ NSString *const mk_af_contentKey = @"mk_af_contentKey";
             @"hallCount":@(hallCount),
             @"motionCount":@(motionCount),
             @"axisData":@(axisData),
+            @"temperature":@(temperature),
+            @"humidity":@(humidity),
             @"battery":@(battery),
             @"tagID":@(tagID),
             @"deviceName":@(deviceName),
@@ -1713,6 +1723,9 @@ NSString *const mk_af_contentKey = @"mk_af_contentKey";
     }else if ([cmd isEqualToString:@"0202"]) {
         //配置广播超时时长
         operationID = mk_af_taskConfigBroadcastTimeoutOperation;
+    }else if ([cmd isEqualToString:@"0203"]) {
+        //配置Beacon模式开关
+        operationID = mk_af_taskConfigBeaconStatusOperation;
     }else if ([cmd isEqualToString:@"0204"]) {
         //配置广播间隔
         operationID = mk_af_taskConfigAdvIntervalOperation;

@@ -292,6 +292,16 @@ static NSInteger const maxDataLen = 100;
                    failedBlock:failedBlock];
 }
 
++ (void)af_configBeaconStatus:(BOOL)isOn
+                     sucBlock:(void (^)(void))sucBlock
+                  failedBlock:(void (^)(NSError *error))failedBlock {
+    NSString *commandString = (isOn ? @"ed0102030101" : @"ed0102030100");
+    [self configDataWithTaskID:mk_af_taskConfigBeaconStatusOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
 + (void)af_configAdvInterval:(NSInteger)interval
                     sucBlock:(void (^)(void))sucBlock
                  failedBlock:(void (^)(NSError *error))failedBlock {

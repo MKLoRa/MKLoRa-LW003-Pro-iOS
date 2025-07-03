@@ -33,6 +33,10 @@
             [self operationFailedBlockWithMsg:@"Read Adv Interval Error" block:failedBlock];
             return;
         }
+        if (![self readBeaconMode]) {
+            [self operationFailedBlockWithMsg:@"Read Beacon Mode Error" block:failedBlock];
+            return;
+        }
         if (![self readBroadcastTimeout]) {
             [self operationFailedBlockWithMsg:@"Read Broadcast Timeout Error" block:failedBlock];
             return;
@@ -65,6 +69,10 @@
         }
         if (![self configAdvInterval]) {
             [self operationFailedBlockWithMsg:@"Config Adv Interval Error" block:failedBlock];
+            return;
+        }
+        if (![self configBeaconMode]) {
+            [self operationFailedBlockWithMsg:@"Config Beacon Mode Error" block:failedBlock];
             return;
         }
         if (![self configBroadcastTimeout]) {
@@ -155,6 +163,31 @@
 - (BOOL)configBroadcastTimeout {
     __block BOOL success = NO;
     [MKAFInterface af_configBroadcastTimeout:[self.timeout integerValue] sucBlock:^{
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)readBeaconMode {
+    __block BOOL success = NO;
+    [MKAFInterface af_readBeaconStatusWithSucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        self.beaconMode = [returnData[@"result"][@"isOn"] boolValue];
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)configBeaconMode {
+    __block BOOL success = NO;
+    [MKAFInterface af_configBeaconStatus:self.beaconMode sucBlock:^{
         success = YES;
         dispatch_semaphore_signal(self.semaphore);
     } failedBlock:^(NSError * _Nonnull error) {

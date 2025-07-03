@@ -194,6 +194,14 @@ NS_ASSUME_NONNULL_BEGIN
                          sucBlock:(void (^)(void))sucBlock
                       failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// Beacon status.
+/// @param isOn isOn
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)af_configBeaconStatus:(BOOL)isOn
+                     sucBlock:(void (^)(void))sucBlock
+                  failedBlock:(void (^)(NSError *error))failedBlock;
+
 /// Configure the Adv Interval of the device.
 /// @param interval 1 x 100ms ~ 100 x 100ms
 /// @param sucBlock Success callback

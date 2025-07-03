@@ -46,6 +46,7 @@ typedef NS_ENUM(NSInteger, mk_af_taskOperationID) {
     mk_af_taskReadConnectationNeedPasswordOperation,    //读取是否需要连接密码
     mk_af_taskReadPasswordOperation,            //读取连接密码
     mk_af_taskReadBroadcastTimeoutOperation,    //读取广播超时时长
+    mk_af_taskReadBeaconStatusOperation,        //读取Beacon模式开关
     mk_af_taskReadAdvIntervalOperation,         //读取广播间隔
     mk_af_taskReadTxPowerOperation,             //读取Tx Power
     mk_af_taskReadDeviceNameOperation,          //读取广播名称
@@ -194,6 +195,7 @@ typedef NS_ENUM(NSInteger, mk_af_taskOperationID) {
     mk_af_taskConfigNeedPasswordOperation,              //读取蓝牙密码开关
     mk_af_taskConfigPasswordOperation,                  //读取蓝牙连接密码
     mk_af_taskConfigBroadcastTimeoutOperation,          //读取广播超时时长
+    mk_af_taskConfigBeaconStatusOperation,              //配置Beacon模式开关
     mk_af_taskConfigAdvIntervalOperation,               //读取广播间隔
     mk_af_taskConfigTxPowerOperation,                   //读取Tx Power
     mk_af_taskConfigDeviceNameOperation,                //读取广播名称

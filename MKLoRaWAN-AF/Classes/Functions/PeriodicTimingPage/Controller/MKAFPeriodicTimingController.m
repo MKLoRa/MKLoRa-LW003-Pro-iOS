@@ -22,6 +22,8 @@
 #import "MKPickerView.h"
 #import "MKTableSectionLineHeader.h"
 
+#import "MKAFInterface+MKAFConfig.h"
+
 #import "MKAFScanTimePointModel.h"
 
 #import "MKAFPeriodicTimingModel.h"
@@ -47,12 +49,19 @@ MKAFReportTimePointCellDelegate>
 
 @property (nonatomic, strong)MKAFPeriodicTimingModel *dataModel;
 
+@property (nonatomic, strong)dispatch_source_t connectTimer;
+
+@property (nonatomic, assign)NSInteger cmdCount;
+
 @end
 
 @implementation MKAFPeriodicTimingController
 
 - (void)dealloc {
     NSLog(@"MKAFPeriodicTimingController销毁");
+    if (self.connectTimer) {
+        dispatch_cancel(self.connectTimer);
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -239,6 +248,7 @@ MKAFReportTimePointCellDelegate>
         @strongify(self);
         [[MKHudManager share] hide];
         [self loadSectionDatas];
+        [self connectTimerRun];
     } failedBlock:^(NSError * _Nonnull error) {
         @strongify(self);
         [[MKHudManager share] hide];
@@ -261,6 +271,7 @@ MKAFReportTimePointCellDelegate>
         @strongify(self);
         [[MKHudManager share] hide];
         [self.view showCentralToast:@"Success"];
+        [self connectTimerRun];
     } failedBlock:^(NSError * _Nonnull error) {
         @strongify(self);
         [[MKHudManager share] hide];
@@ -315,6 +326,31 @@ MKAFReportTimePointCellDelegate>
         cellModel.timeSpaceIndex = currentRow;
         [self.tableView mk_reloadRow:index inSection:2 withRowAnimation:UITableViewRowAnimationNone];
     }];
+}
+
+- (void)connectTimerRun{
+    if (self.connectTimer) {
+        dispatch_cancel(self.connectTimer);
+    }
+    self.cmdCount = 0;
+    self.connectTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,dispatch_get_global_queue(0, 0));
+    //开始时间
+    dispatch_time_t start = dispatch_time(DISPATCH_TIME_NOW, 150 * NSEC_PER_SEC);
+    //间隔时间
+    uint64_t interval = 150 * NSEC_PER_SEC;
+    dispatch_source_set_timer(self.connectTimer, start, interval, 0);
+    @weakify(self);
+    dispatch_source_set_event_handler(self.connectTimer, ^{
+        @strongify(self);
+        if (self.cmdCount == 3) {
+            dispatch_cancel(self.connectTimer);
+            return;
+        }
+        self.cmdCount ++;
+        long long recordTime = [[NSDate date] timeIntervalSince1970];
+        [MKAFInterface af_configDeviceTime:recordTime sucBlock:nil failedBlock:nil];
+    });
+    dispatch_resume(self.connectTimer);
 }
 
 #pragma mark - loadSectionDatas

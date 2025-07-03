@@ -293,6 +293,14 @@
                  failedBlock:failedBlock];
 }
 
++ (void)af_readBeaconStatusWithSucBlock:(void (^)(id returnData))sucBlock
+                            failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_af_taskReadBeaconStatusOperation
+                     cmdFlag:@"0203"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
 + (void)af_readAdvIntervalWithSucBlock:(void (^)(id returnData))sucBlock
                            failedBlock:(void (^)(NSError *error))failedBlock {
     [self readDataWithTaskID:mk_af_taskReadAdvIntervalOperation

@@ -36,6 +36,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign)BOOL deviceName;
 
+@property (nonatomic, assign)BOOL temperature;
+
+@property (nonatomic, assign)BOOL humidity;
 
 @property (nonatomic, assign)BOOL advertising;
 

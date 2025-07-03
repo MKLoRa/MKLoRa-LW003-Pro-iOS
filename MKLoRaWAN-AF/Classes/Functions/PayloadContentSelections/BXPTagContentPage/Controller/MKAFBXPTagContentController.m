@@ -165,34 +165,48 @@ mk_textSwitchCellDelegate>
         return;
     }
     if (index == 7) {
-        //Battery Voltage
-        self.dataModel.battery = isOn;
+        //Temperature
+        self.dataModel.temperature = isOn;
         MKTextSwitchCellModel *cellModel = self.section1List[4];
         cellModel.isOn = isOn;
         return;
     }
     if (index == 8) {
-        //Tag ID
-        self.dataModel.tagID = isOn;
+        //Humidity
+        self.dataModel.humidity = isOn;
         MKTextSwitchCellModel *cellModel = self.section1List[5];
         cellModel.isOn = isOn;
         return;
     }
     if (index == 9) {
-        //Device Name
-        self.dataModel.deviceName = isOn;
+        //Battery Voltage
+        self.dataModel.battery = isOn;
         MKTextSwitchCellModel *cellModel = self.section1List[6];
         cellModel.isOn = isOn;
         return;
     }
     if (index == 10) {
+        //Tag ID
+        self.dataModel.tagID = isOn;
+        MKTextSwitchCellModel *cellModel = self.section1List[7];
+        cellModel.isOn = isOn;
+        return;
+    }
+    if (index == 11) {
+        //Device Name
+        self.dataModel.deviceName = isOn;
+        MKTextSwitchCellModel *cellModel = self.section1List[8];
+        cellModel.isOn = isOn;
+        return;
+    }
+    if (index == 12) {
         //Raw data - Advertising
         self.dataModel.advertising = isOn;
         MKTextSwitchCellModel *cellModel = self.section2List[0];
         cellModel.isOn = isOn;
         return;
     }
-    if (index == 11) {
+    if (index == 13) {
         //Raw data - Response
         self.dataModel.response = isOn;
         MKTextSwitchCellModel *cellModel = self.section2List[1];
@@ -291,32 +305,44 @@ mk_textSwitchCellDelegate>
     
     MKTextSwitchCellModel *cellModel5 = [[MKTextSwitchCellModel alloc] init];
     cellModel5.index = 7;
-    cellModel5.msg = @"Battery Voltage";
-    cellModel5.isOn = self.dataModel.battery;
+    cellModel5.msg = @"Temperature";
+    cellModel5.isOn = self.dataModel.temperature;
     [self.section1List addObject:cellModel5];
     
     MKTextSwitchCellModel *cellModel6 = [[MKTextSwitchCellModel alloc] init];
     cellModel6.index = 8;
-    cellModel6.msg = @"Tag ID";
-    cellModel6.isOn = self.dataModel.tagID;
+    cellModel6.msg = @"Humidity";
+    cellModel6.isOn = self.dataModel.humidity;
     [self.section1List addObject:cellModel6];
     
     MKTextSwitchCellModel *cellModel7 = [[MKTextSwitchCellModel alloc] init];
     cellModel7.index = 9;
-    cellModel7.msg = @"Device Name";
-    cellModel7.isOn = self.dataModel.deviceName;
+    cellModel7.msg = @"Battery Voltage";
+    cellModel7.isOn = self.dataModel.battery;
     [self.section1List addObject:cellModel7];
+    
+    MKTextSwitchCellModel *cellModel8 = [[MKTextSwitchCellModel alloc] init];
+    cellModel8.index = 10;
+    cellModel8.msg = @"Tag ID";
+    cellModel8.isOn = self.dataModel.tagID;
+    [self.section1List addObject:cellModel8];
+    
+    MKTextSwitchCellModel *cellModel9 = [[MKTextSwitchCellModel alloc] init];
+    cellModel9.index = 11;
+    cellModel9.msg = @"Device Name";
+    cellModel9.isOn = self.dataModel.deviceName;
+    [self.section1List addObject:cellModel9];
 }
 
 - (void)loadSection2Datas {
     MKTextSwitchCellModel *cellModel1 = [[MKTextSwitchCellModel alloc] init];
-    cellModel1.index = 10;
+    cellModel1.index = 12;
     cellModel1.msg = @"Raw data - Advertising";
     cellModel1.isOn = self.dataModel.advertising;
     [self.section2List addObject:cellModel1];
     
     MKTextSwitchCellModel *cellModel2 = [[MKTextSwitchCellModel alloc] init];
-    cellModel2.index = 11;
+    cellModel2.index = 13;
     cellModel2.msg = @"Raw data - Response";
     cellModel2.isOn = self.dataModel.response;
     [self.section2List addObject:cellModel2];
