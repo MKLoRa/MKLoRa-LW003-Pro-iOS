@@ -24,10 +24,10 @@
 
 /// 当触发
 /// 01:表示连接成功后，1分钟内没有通过密码验证（未输入密码，或者连续输入密码错误）认为超时，返回结果， 然后断开连接
-/// 02:连续三分钟设备没有数据通信断开，返回结果，断开连接
-/// 03:关机、重启设备，就不需要显示断开连接的弹窗了，只需要显示对应的弹窗
-/// 04:设备恢复出厂设置
-/// 05:修改密码成功后，返回结果，断开连接
+/// 02:修改密码成功后，返回结果，断开连接
+/// 03:连续三分钟设备没有数据通信断开，返回结果，断开连接
+/// 04:重启设备，就不需要显示断开连接的弹窗了，只需要显示对应的弹窗
+/// 05:设备恢复出厂设置
 
 @property (nonatomic, assign)BOOL disconnectType;
 
@@ -110,25 +110,25 @@
 
 - (void)disconnectTypeNotification:(NSNotification *)note {
     NSString *type = note.userInfo[@"type"];
-    /// 02:连续三分钟设备没有数据通信断开，返回结果，断开连接
-    /// 03:修改密码成功后，返回结果，断开连接
+    /// 02:修改密码成功后，返回结果，断开连接
+    /// 03:连续三分钟设备没有数据通信断开，返回结果，断开连接
     /// 04:重启设备，就不需要显示断开连接的弹窗了，只需要显示对应的弹窗
     /// 05:设备恢复出厂设置
     self.disconnectType = YES;
     if ([type isEqualToString:@"02"]) {
-        [self showAlertWithMsg:@"No data communication for 3 minutes, the device is disconnected." title:@""];
+        [self showAlertWithMsg:@"Password changed successfully! Please reconnect the device." title:@"Change Password"];
         return;
     }
     if ([type isEqualToString:@"03"]) {
-        [self showAlertWithMsg:@"Reboot successfully!Please reconnect the device." title:@"Dismiss"];
+        [self showAlertWithMsg:@"No data communication for 3 minutes, the device is disconnected." title:@""];
         return;
     }
     if ([type isEqualToString:@"04"]) {
-        [self showAlertWithMsg:@"Factory reset successfully!Please reconnect the device." title:@"Factory Reset"];
+        [self showAlertWithMsg:@"Reboot successfully!Please reconnect the device." title:@"Dismiss"];
         return;
     }
     if ([type isEqualToString:@"05"]) {
-        [self showAlertWithMsg:@"Password changed successfully! Please reconnect the device." title:@"Change Password"];
+        [self showAlertWithMsg:@"Factory reset successfully!Please reconnect the device." title:@"Factory Reset"];
         return;
     }
     //异常断开

@@ -161,7 +161,7 @@ static dispatch_once_t onceToken;
         NSString *content = [MKBLEBaseSDKAdopter hexStringFromData:characteristic.value];
         [[NSNotificationCenter defaultCenter] postNotificationName:mk_af_deviceDisconnectTypeNotification
                                                             object:nil
-                                                          userInfo:@{@"type":[content substringWithRange:NSMakeRange(8, 2)]}];
+                                                          userInfo:@{@"type":[content substringWithRange:NSMakeRange(10, 2)]}];
         return;
     }
     
