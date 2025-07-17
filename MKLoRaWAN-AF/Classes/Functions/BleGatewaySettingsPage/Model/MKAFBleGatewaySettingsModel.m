@@ -37,6 +37,10 @@
             [self operationFailedBlockWithMsg:@"Read Data Retention Strategy Error" block:failedBlock];
             return;
         }
+        if (![self readAdvPacket]) {
+            [self operationFailedBlockWithMsg:@"Read Advertising Packet Report Only Error" block:failedBlock];
+            return;
+        }
         moko_dispatch_main_safe(^{
             if (sucBlock) {
                 sucBlock();
@@ -57,6 +61,10 @@
         }
         if (![self configDataRetentionStrategy]) {
             [self operationFailedBlockWithMsg:@"Config Data Retention Strategy Error" block:failedBlock];
+            return;
+        }
+        if (![self configAdvPacket]) {
+            [self operationFailedBlockWithMsg:@"Config Advertising Packet Report Only Error" block:failedBlock];
             return;
         }
         moko_dispatch_main_safe(^{
@@ -142,6 +150,32 @@
     dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
     return success;
 }
+
+- (BOOL)readAdvPacket {
+    __block BOOL success = NO;
+    [MKAFInterface af_readBXPUploadBroadcastWithSucBlock:^(id  _Nonnull returnData) {
+        success = YES;
+        self.advReport = [returnData[@"result"][@"isOn"] boolValue];
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
+- (BOOL)configAdvPacket {
+    __block BOOL success = NO;
+    [MKAFInterface af_configBXPUploadBroadcastStatus:self.advReport sucBlock:^{
+        success = YES;
+        dispatch_semaphore_signal(self.semaphore);
+    } failedBlock:^(NSError * _Nonnull error) {
+        dispatch_semaphore_signal(self.semaphore);
+    }];
+    dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
+    return success;
+}
+
 #pragma mark - private method
 - (void)operationFailedBlockWithMsg:(NSString *)msg block:(void (^)(NSError *error))block {
     moko_dispatch_main_safe(^{

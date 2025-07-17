@@ -19,6 +19,7 @@
 #import "MKHudManager.h"
 #import "MKTextButtonCell.h"
 #import "MKSettingTextCell.h"
+#import "MKTextSwitchCell.h"
 #import "MKTableSectionLineHeader.h"
 
 #import "MKAFBleGatewaySettingsModel.h"
@@ -30,6 +31,7 @@
 
 @interface MKAFBleGatewayController ()<UITableViewDelegate,
 UITableViewDataSource,
+mk_textSwitchCellDelegate,
 MKTextButtonCellDelegate>
 
 @property (nonatomic, strong)MKBaseTableView *tableView;
@@ -47,6 +49,8 @@ MKTextButtonCellDelegate>
 @property (nonatomic, strong)NSMutableArray *section5List;
 
 @property (nonatomic, strong)NSMutableArray *section6List;
+
+@property (nonatomic, strong)NSMutableArray *section7List;
 
 @property (nonatomic, strong)NSMutableArray *headerList;
 
@@ -85,7 +89,7 @@ MKTextButtonCellDelegate>
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 4) {
-        MKTextButtonCellModel *cellModel = self.section4List[indexPath.row];
+        MKTextSwitchCellModel *cellModel = self.section4List[indexPath.row];
         return [cellModel cellHeightWithContentWidth:kViewWidth];
     }
     if (indexPath.section == 5) {
@@ -94,6 +98,10 @@ MKTextButtonCellDelegate>
     }
     if (indexPath.section == 6) {
         MKTextButtonCellModel *cellModel = self.section6List[indexPath.row];
+        return [cellModel cellHeightWithContentWidth:kViewWidth];
+    }
+    if (indexPath.section == 7) {
+        MKTextButtonCellModel *cellModel = self.section7List[indexPath.row];
         return [cellModel cellHeightWithContentWidth:kViewWidth];
     }
     return 44.f;
@@ -163,6 +171,9 @@ MKTextButtonCellDelegate>
     if (section == 6) {
         return self.section6List.count;
     }
+    if (section == 7) {
+        return self.section7List.count;
+    }
     return 0;
 }
 
@@ -188,7 +199,7 @@ MKTextButtonCellDelegate>
         return cell;
     }
     if (indexPath.section == 4) {
-        MKTextButtonCell *cell = [MKTextButtonCell initCellWithTableView:tableView];
+        MKTextSwitchCell *cell = [MKTextSwitchCell initCellWithTableView:tableView];
         cell.dataModel = self.section4List[indexPath.row];
         cell.delegate = self;
         return cell;
@@ -199,10 +210,30 @@ MKTextButtonCellDelegate>
         cell.delegate = self;
         return cell;
     }
+    if (indexPath.section == 6) {
+        MKTextButtonCell *cell = [MKTextButtonCell initCellWithTableView:tableView];
+        cell.dataModel = self.section6List[indexPath.row];
+        cell.delegate = self;
+        return cell;
+    }
     MKTextButtonCell *cell = [MKTextButtonCell initCellWithTableView:tableView];
-    cell.dataModel = self.section6List[indexPath.row];
+    cell.dataModel = self.section7List[indexPath.row];
     cell.delegate = self;
     return cell;
+}
+
+#pragma mark - mk_textSwitchCellDelegate
+/// 开关状态发生改变了
+/// @param isOn 当前开关状态
+/// @param index 当前cell所在的index
+- (void)mk_textSwitchCellStatusChanged:(BOOL)isOn index:(NSInteger)index {
+    if (index == 0) {
+        //Advertising Packet Report Only
+        self.dataModel.advReport = isOn;
+        MKTextSwitchCellModel *cellModel = self.section4List[0];
+        cellModel.isOn = isOn;
+        return;
+    }
 }
 
 #pragma mark - MKTextButtonCellDelegate
@@ -216,25 +247,24 @@ MKTextButtonCellDelegate>
     if (index == 0) {
         //Duplicate Data Filter
         self.dataModel.filter = dataListIndex;
-        MKTextButtonCellModel *cellModel = self.section4List[0];
+        MKTextButtonCellModel *cellModel = self.section5List[0];
         cellModel.dataListIndex = dataListIndex;
         return;
     }
     if (index == 1) {
         //Report Data Max Length
         self.dataModel.dataLen = dataListIndex;
-        MKTextButtonCellModel *cellModel = self.section5List[0];
+        MKTextButtonCellModel *cellModel = self.section6List[0];
         cellModel.dataListIndex = dataListIndex;
         return;
     }
     if (index == 2) {
         //Data Retention Strategy
         self.dataModel.strategy = dataListIndex;
-        MKTextButtonCellModel *cellModel = self.section6List[0];
+        MKTextButtonCellModel *cellModel = self.section7List[0];
         cellModel.dataListIndex = dataListIndex;
         return;
     }
-    
 }
 
 #pragma mark - interface
@@ -267,13 +297,16 @@ MKTextButtonCellDelegate>
 }
 
 - (void)updateCellDatas {
-    MKTextButtonCellModel *filterModel = self.section4List[0];
+    MKTextSwitchCellModel *advPackModel = self.section4List[0];
+    advPackModel.isOn = self.dataModel.advReport;
+    
+    MKTextButtonCellModel *filterModel = self.section5List[0];
     filterModel.dataListIndex = self.dataModel.filter;
     
-    MKTextButtonCellModel *reportModel = self.section5List[0];
+    MKTextButtonCellModel *reportModel = self.section6List[0];
     reportModel.dataListIndex = self.dataModel.dataLen;
     
-    MKTextButtonCellModel *strategyModel = self.section6List[0];
+    MKTextButtonCellModel *strategyModel = self.section7List[0];
     strategyModel.dataListIndex = self.dataModel.strategy;
     
     [self.tableView reloadData];
@@ -288,8 +321,9 @@ MKTextButtonCellDelegate>
     [self loadSection4Datas];
     [self loadSection5Datas];
     [self loadSection6Datas];
+    [self loadSection7Datas];
     
-    for (NSInteger i = 0; i < 7; i ++) {
+    for (NSInteger i = 0; i < 8; i ++) {
         MKTableSectionLineHeaderModel *headerModel = [[MKTableSectionLineHeaderModel alloc] init];
         [self.headerList addObject:headerModel];
     }
@@ -322,22 +356,30 @@ MKTextButtonCellDelegate>
 }
 
 - (void)loadSection4Datas {
-    MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
+    MKTextSwitchCellModel *cellModel = [[MKTextSwitchCellModel alloc] init];
     cellModel.index = 0;
-    cellModel.msg = @"Duplicate Data Filter";
-    cellModel.dataList = @[@"No",@"MAC",@"MAC+Data Type",@"MAC+Raw Data"];
+    cellModel.msg = @"Advertising Packet Report Only";
+    cellModel.noteMsg = @"*If set to OFF, if no response packet is detected, the broadcast packet alone will not be considered to meet the filter conditions.(Only broadcast formats defined by MOKO are valid.)";
     [self.section4List addObject:cellModel];
 }
 
 - (void)loadSection5Datas {
     MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
-    cellModel.index = 1;
-    cellModel.msg = @"Report Data Max Length";
-    cellModel.dataList = @[@"Level 1",@"Level 2"];
+    cellModel.index = 0;
+    cellModel.msg = @"Duplicate Data Filter";
+    cellModel.dataList = @[@"No",@"MAC",@"MAC+Data Type",@"MAC+Raw Data"];
     [self.section5List addObject:cellModel];
 }
 
 - (void)loadSection6Datas {
+    MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
+    cellModel.index = 1;
+    cellModel.msg = @"Report Data Max Length";
+    cellModel.dataList = @[@"Level 1",@"Level 2"];
+    [self.section6List addObject:cellModel];
+}
+
+- (void)loadSection7Datas {
     MKTextButtonCellModel *cellModel = [[MKTextButtonCellModel alloc] init];
     cellModel.index = 2;
     cellModel.msg = @"Data Retention Strategy";
@@ -346,7 +388,7 @@ MKTextButtonCellDelegate>
     cellModel.noteMsgColor = RGBCOLOR(102, 102, 102);
     cellModel.noteMsg = @"*Data retention strategy when the report interval isn't enough to upload all the data for the current reporting cycle.";
 
-    [self.section6List addObject:cellModel];
+    [self.section7List addObject:cellModel];
 }
 
 #pragma mark - UI
@@ -420,6 +462,13 @@ MKTextButtonCellDelegate>
         _section6List = [NSMutableArray array];
     }
     return _section6List;
+}
+
+- (NSMutableArray *)section7List {
+    if (!_section7List) {
+        _section7List = [NSMutableArray array];
+    }
+    return _section7List;
 }
 
 - (NSMutableArray *)headerList {

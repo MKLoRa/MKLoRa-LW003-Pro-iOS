@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MKAFBleGatewaySettingsModel : NSObject
 
+@property (nonatomic, assign)BOOL advReport;
+
 /// Duplicate Data Filter 0:No  1:MAC   2:MAC+Data Type 3:MAC+Raw Data
 @property (nonatomic, assign)NSInteger filter;
 
