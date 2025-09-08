@@ -19,8 +19,6 @@
 #import "MKTextSwitchCell.h"
 #import "MKTableSectionLineHeader.h"
 
-#import "MKAFFilterEditSectionHeaderView.h"
-
 #import "MKAFBXPTagContentModel.h"
 
 @interface MKAFBXPTagContentController ()<UITableViewDelegate,

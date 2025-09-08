@@ -91,25 +91,6 @@ TODO: Add long description of the pod here.
       sss.source_files = 'MKLoRaWAN-AF/Classes/Expand/TimingModeAddCell/**'
     end
     
-    ss.subspec 'FilterCell' do |sss|
-      sss.subspec 'FilterBeaconCell' do |ssss|
-        ssss.source_files = 'MKLoRaWAN-AF/Classes/Expand/FilterCell/FilterBeaconCell/**'
-      end
-      
-      sss.subspec 'FilterByRawDataCell' do |ssss|
-        ssss.source_files = 'MKLoRaWAN-AF/Classes/Expand/FilterCell/FilterByRawDataCell/**'
-      end
-      
-      sss.subspec 'FilterEditSectionHeaderView' do |ssss|
-        ssss.source_files = 'MKLoRaWAN-AF/Classes/Expand/FilterCell/FilterEditSectionHeaderView/**'
-      end
-      
-      sss.subspec 'FilterNormalTextFieldCell' do |ssss|
-        ssss.source_files = 'MKLoRaWAN-AF/Classes/Expand/FilterCell/FilterNormalTextFieldCell/**'
-      end
-      
-    end
-    
     ss.dependency 'MKBaseModuleLibrary'
     ss.dependency 'MKCustomUIModule'
   end

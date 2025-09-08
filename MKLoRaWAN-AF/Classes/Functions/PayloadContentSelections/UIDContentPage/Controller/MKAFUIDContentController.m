@@ -19,8 +19,6 @@
 #import "MKTextSwitchCell.h"
 #import "MKTableSectionLineHeader.h"
 
-#import "MKAFFilterEditSectionHeaderView.h"
-
 #import "MKAFUIDContentModel.h"
 
 @interface MKAFUIDContentController ()<UITableViewDelegate,

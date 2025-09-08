@@ -645,29 +645,9 @@ PODS:
   - MKLoRaWAN-AF/Expand (0.1.0):
     - MKBaseModuleLibrary
     - MKCustomUIModule
-    - MKLoRaWAN-AF/Expand/FilterCell (= 0.1.0)
     - MKLoRaWAN-AF/Expand/ReportTimePointCell (= 0.1.0)
     - MKLoRaWAN-AF/Expand/TextButtonCell (= 0.1.0)
     - MKLoRaWAN-AF/Expand/TimingModeAddCell (= 0.1.0)
-  - MKLoRaWAN-AF/Expand/FilterCell (0.1.0):
-    - MKBaseModuleLibrary
-    - MKCustomUIModule
-    - MKLoRaWAN-AF/Expand/FilterCell/FilterBeaconCell (= 0.1.0)
-    - MKLoRaWAN-AF/Expand/FilterCell/FilterByRawDataCell (= 0.1.0)
-    - MKLoRaWAN-AF/Expand/FilterCell/FilterEditSectionHeaderView (= 0.1.0)
-    - MKLoRaWAN-AF/Expand/FilterCell/FilterNormalTextFieldCell (= 0.1.0)
-  - MKLoRaWAN-AF/Expand/FilterCell/FilterBeaconCell (0.1.0):
-    - MKBaseModuleLibrary
-    - MKCustomUIModule
-  - MKLoRaWAN-AF/Expand/FilterCell/FilterByRawDataCell (0.1.0):
-    - MKBaseModuleLibrary
-    - MKCustomUIModule
-  - MKLoRaWAN-AF/Expand/FilterCell/FilterEditSectionHeaderView (0.1.0):
-    - MKBaseModuleLibrary
-    - MKCustomUIModule
-  - MKLoRaWAN-AF/Expand/FilterCell/FilterNormalTextFieldCell (0.1.0):
-    - MKBaseModuleLibrary
-    - MKCustomUIModule
   - MKLoRaWAN-AF/Expand/ReportTimePointCell (0.1.0):
     - MKBaseModuleLibrary
     - MKCustomUIModule
@@ -2650,7 +2630,7 @@ DEPENDENCIES:
   - MKLoRaWAN-AF (from `../`)
 
 SPEC REPOS:
-  https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
+  trunk:
     - CircleProgressBar
     - CTMediator
     - FMDB
@@ -2686,13 +2666,13 @@ SPEC CHECKSUMS:
   MKBaseModuleLibrary: 2b79bcae588c755588413fbb643b510253271b23
   MKCustomUIModule: 8426eba1d3178b06d92741d31da32502920fb8fa
   MKFilterPagesModule: 2c8b0f9a828e8dadb6f0bada35c1adeb9a93749f
-  MKLoRaWAN-AF: 36a8a73ac0fd943b3947e279f068b0b7efba0f77
+  MKLoRaWAN-AF: 379653ce080a47b39749e401ea63fd2ab56f431e
   MLInputDodger: 79a0e420a80d0d3bba122bf2639603cc76609ba8
   SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
   Toast: 1f5ea13423a1e6674c4abdac5be53587ae481c4e
   WRNavigationBar: 10bfdf96addf14d640d07c2ef08a029c18d8af10
   ZIPFoundation: b1f0de4eed33e74a676f76e12559ab6b75990197
 
-PODFILE CHECKSUM: b6c8861452dba68d6fac7106b810782f40c2c155
+PODFILE CHECKSUM: 20d0f65f3854b2e9b88f0355425ec10e992be925
 
-COCOAPODS: 1.16.1
+COCOAPODS: 1.16.2
