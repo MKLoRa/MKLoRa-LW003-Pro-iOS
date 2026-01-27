@@ -938,6 +938,14 @@
                  failedBlock:failedBlock];
 }
 
++ (void)af_readGatewayMessageTypeWithSucBlock:(void (^)(id returnData))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock {
+    [self readDataWithTaskID:mk_af_taskReadGatewayMessageTypeOperation
+                     cmdFlag:@"055f"
+                    sucBlock:sucBlock
+                 failedBlock:failedBlock];
+}
+
 #pragma mark *************************Other application***********************
 + (void)af_readTHFunctionStatusWithSucBlock:(void (^)(id returnData))sucBlock
                                 failedBlock:(void (^)(NSError *error))failedBlock {

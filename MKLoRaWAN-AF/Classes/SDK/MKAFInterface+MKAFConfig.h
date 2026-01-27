@@ -843,6 +843,16 @@ NS_ASSUME_NONNULL_BEGIN
                          sucBlock:(void (^)(void))sucBlock
                       failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// Gateway Connect Payload Message Type Settings.
+/// @param messageType messageType
+/// @param times Max Retransmission Times.1~4.
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)af_configGatewayPayloadType:(mk_af_messageType)messageType
+             maxRetransmissionTimes:(NSInteger)times
+                           sucBlock:(void (^)(void))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock;
+
 #pragma mark *************************Other application***********************
 /// Temperature and humidity sampling switch status.
 /// @param isOn isOn

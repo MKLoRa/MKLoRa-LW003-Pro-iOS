@@ -1475,6 +1475,23 @@ static NSInteger const maxDataLen = 100;
                    failedBlock:failedBlock];
 }
 
++ (void)af_configGatewayPayloadType:(mk_af_messageType)messageType
+             maxRetransmissionTimes:(NSInteger)times
+                           sucBlock:(void (^)(void))sucBlock
+                        failedBlock:(void (^)(NSError *error))failedBlock {
+    if (times < 1 || times > 4) {
+        [MKBLEBaseSDKAdopter operationParamsErrorBlock:failedBlock];
+        return;
+    }
+    NSString *messageValue = [MKAFSDKDataAdopter fetchMessageTypeString:messageType];
+    NSString *timeValue = [MKBLEBaseSDKAdopter fetchHexValue:times byteLen:1];
+    NSString *commandString = [NSString stringWithFormat:@"%@%@%@",@"ed01055f02",messageValue,timeValue];
+    [self configDataWithTaskID:mk_af_taskConfigGatewayPayloadTypeOperation
+                          data:commandString
+                      sucBlock:sucBlock
+                   failedBlock:failedBlock];
+}
+
 #pragma mark *************************Other application***********************
 + (void)af_configTHFunctionStatus:(BOOL)isOn
                          sucBlock:(void (^)(void))sucBlock

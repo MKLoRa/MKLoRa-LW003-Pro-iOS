@@ -39,6 +39,8 @@ MKTextButtonCellDelegate>
 
 @property (nonatomic, strong)NSMutableArray *section5List;
 
+@property (nonatomic, strong)NSMutableArray *section6List;
+
 @property (nonatomic, strong)NSMutableArray *headerList;
 
 @property (nonatomic, strong)MKAFMessageTypeModel *dataModel;
@@ -101,6 +103,9 @@ MKTextButtonCellDelegate>
     if (section == 5) {
         return (self.dataModel.alarmPayload == 1 ? self.section5List.count : 1);
     }
+    if (section == 6) {
+        return (self.dataModel.gatewayPayload == 1 ? self.section6List.count : 1);
+    }
     return 0;
 }
 
@@ -135,8 +140,14 @@ MKTextButtonCellDelegate>
         cell.delegate = self;
         return cell;
     }
+    if (indexPath.section == 5) {
+        MKTextButtonCell *cell = [MKTextButtonCell initCellWithTableView:tableView];
+        cell.dataModel = self.section5List[indexPath.row];
+        cell.delegate = self;
+        return cell;
+    }
     MKTextButtonCell *cell = [MKTextButtonCell initCellWithTableView:tableView];
-    cell.dataModel = self.section5List[indexPath.row];
+    cell.dataModel = self.section6List[indexPath.row];
     cell.delegate = self;
     return cell;
 }
@@ -239,6 +250,21 @@ MKTextButtonCellDelegate>
         cellModel.dataListIndex = dataListIndex;
         return;
     }
+    if (index == 12) {
+        //Gateway Connect Payload Type
+        self.dataModel.gatewayPayload = dataListIndex;
+        MKTextButtonCellModel *cellModel = self.section6List[0];
+        cellModel.dataListIndex = dataListIndex;
+        [self.tableView mk_reloadSection:6 withRowAnimation:UITableViewRowAnimationNone];
+        return;
+    }
+    if (index == 13) {
+        //Gateway Connect/Max Retransmission Times
+        self.dataModel.gatewayMaxRetransmission = dataListIndex;
+        MKTextButtonCellModel *cellModel = self.section6List[1];
+        cellModel.dataListIndex = dataListIndex;
+        return;
+    }
 }
 
 #pragma mark - interface
@@ -278,8 +304,9 @@ MKTextButtonCellDelegate>
     [self loadSection3Datas];
     [self loadSection4Datas];
     [self loadSection5Datas];
+    [self loadSection6Datas];
     
-    for (NSInteger i = 0; i < 6; i ++) {
+    for (NSInteger i = 0; i < 7; i ++) {
         MKTableSectionLineHeaderModel *headerModel = [[MKTableSectionLineHeaderModel alloc] init];
         [self.headerList addObject:headerModel];
     }
@@ -383,6 +410,22 @@ MKTextButtonCellDelegate>
     [self.section5List addObject:cellModel2];
 }
 
+- (void)loadSection6Datas {
+    MKTextButtonCellModel *cellModel1 = [[MKTextButtonCellModel alloc] init];
+    cellModel1.index = 12;
+    cellModel1.msg = @"Gateway Connect Payload Type";
+    cellModel1.dataList = @[@"Unconfirmed",@"Confirmed"];
+    cellModel1.dataListIndex = self.dataModel.gatewayPayload;
+    [self.section6List addObject:cellModel1];
+    
+    MKTextButtonCellModel *cellModel2 = [[MKTextButtonCellModel alloc] init];
+    cellModel2.index = 13;
+    cellModel2.msg = @"Max Retransmission Times";
+    cellModel2.dataList = @[@"0",@"1",@"2",@"3"];
+    cellModel2.dataListIndex = self.dataModel.gatewayMaxRetransmission;
+    [self.section6List addObject:cellModel2];
+}
+
 #pragma mark - UI
 - (void)loadSubViews {
     self.defaultTitle = @"Message Type Settings";
@@ -447,6 +490,13 @@ MKTextButtonCellDelegate>
         _section5List = [NSMutableArray array];
     }
     return _section5List;
+}
+
+- (NSMutableArray *)section6List {
+    if (!_section6List) {
+        _section6List = [NSMutableArray array];
+    }
+    return _section6List;
 }
 
 - (NSMutableArray *)headerList {

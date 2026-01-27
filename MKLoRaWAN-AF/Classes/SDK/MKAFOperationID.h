@@ -128,6 +128,7 @@ typedef NS_ENUM(NSInteger, mk_af_taskOperationID) {
     mk_af_taskReadEventMessageTypeOperation,            //读取事件信息包上行配置
     mk_af_taskReadBeaconMessageTypeOperation,           //读取网关信息包上行配置
     mk_af_taskReadAlarmMessageTypeOperation,            //读取报警信息包上行配置
+    mk_af_taskReadGatewayMessageTypeOperation,          //读取网关信息包上行配置
     
 #pragma mark - 其他应用功能
     mk_af_taskReadTHFunctionStatusOperation,                    //读取温湿度采样开关
@@ -273,8 +274,9 @@ typedef NS_ENUM(NSInteger, mk_af_taskOperationID) {
     mk_af_taskConfigHeartbeatPayloadTypeOperation,      //配置心跳包上行参数
     mk_af_taskConfigLowPowerPayloadTypeOperation,       //配置低电信息包上行配置
     mk_af_taskConfigEventPayloadTypeOperation,          //配置事件信息包上行参数
-    mk_af_taskConfigBeaconPayloadTypeOperation,         //配置网关信息包上行参数
+    mk_af_taskConfigBeaconPayloadTypeOperation,         //配置Beacon信息包上行参数
     mk_af_taskConfigAlarmPayloadTypeOperation,          //配置报警信息包上行配置
+    mk_af_taskConfigGatewayPayloadTypeOperation,        //配置网关信息包上行配置
     
 #pragma mark - 其他应用参数
     mk_af_taskConfigTHFunctionStatusOperation,              //读取温湿度采样开关

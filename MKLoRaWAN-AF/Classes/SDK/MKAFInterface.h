@@ -1243,6 +1243,18 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)af_readAlarmMessageTypeWithSucBlock:(void (^)(id returnData))sucBlock
                                 failedBlock:(void (^)(NSError *error))failedBlock;
 
+/// Read Gateway Connect Payload Message Type Settings.
+/*
+ @{
+     @"payloadType":@"0",           //@"0":Unconfirmed   @"1":Confirmed
+     @"number":@"1",
+ };
+ */
+/// @param sucBlock Success callback
+/// @param failedBlock Failure callback
++ (void)af_readGatewayMessageTypeWithSucBlock:(void (^)(id returnData))sucBlock
+                                  failedBlock:(void (^)(NSError *error))failedBlock;
+
 #pragma mark *************************Other application***********************
 /// Temperature and humidity sampling switch status.
 /*

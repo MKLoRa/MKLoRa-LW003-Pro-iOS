@@ -36,6 +36,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign)NSInteger alarmMaxRetransmission;
 
+@property (nonatomic, assign)NSInteger gatewayPayload;
+
+@property (nonatomic, assign)NSInteger gatewayMaxRetransmission;
+
 - (void)readDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;
 
 - (void)configDataWithSucBlock:(void (^)(void))sucBlock failedBlock:(void (^)(NSError *error))failedBlock;

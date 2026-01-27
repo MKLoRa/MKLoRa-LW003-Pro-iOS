@@ -1046,6 +1046,15 @@ NSString *const mk_af_contentKey = @"mk_af_contentKey";
             @"number":number,
         };
         operationID = mk_af_taskReadAlarmMessageTypeOperation;
+    }else if ([cmd isEqualToString:@"055f"]) {
+        //读取网关信息包上行配置
+        NSString *payloadType = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(0, 2)];
+        NSString *number = [MKBLEBaseSDKAdopter getDecimalStringWithHex:content range:NSMakeRange(2, 2)];
+        resultDic = @{
+            @"payloadType":payloadType,
+            @"number":number,
+        };
+        operationID = mk_af_taskReadGatewayMessageTypeOperation;
     }else if ([cmd isEqualToString:@"0650"]) {
         //读取温湿度采样开关
         BOOL isOn = ([content isEqualToString:@"01"]);
@@ -1948,6 +1957,9 @@ NSString *const mk_af_contentKey = @"mk_af_contentKey";
     }else if ([cmd isEqualToString:@"055e"]) {
         //配置报警信息包上行配置
         operationID = mk_af_taskConfigAlarmPayloadTypeOperation;
+    }else if ([cmd isEqualToString:@"055f"]) {
+        //配置网关信息包上行配置
+        operationID = mk_af_taskConfigGatewayPayloadTypeOperation;
     }else if ([cmd isEqualToString:@"0650"]) {
         //配置温湿度采样开关
         operationID = mk_af_taskConfigTHFunctionStatusOperation;
